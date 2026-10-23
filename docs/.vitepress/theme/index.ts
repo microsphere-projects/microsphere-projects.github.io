@@ -5,6 +5,7 @@ import ProjectNav from './components/ProjectNav.vue'
 import ProjectsIndex from './components/ProjectsIndex.vue'
 import ArchitectureMap from './components/ArchitectureMap.vue'
 import HomeHero from './components/HomeHero.vue'
+import HomeIntro from './components/HomeIntro.vue'
 import './custom.css'
 
 export default {
@@ -15,5 +16,6 @@ export default {
     app.component('ProjectsIndex', ProjectsIndex)
     app.component('ArchitectureMap', ArchitectureMap)
     app.component('HomeHero', HomeHero)
+    app.component('HomeIntro', HomeIntro)
   },
 } satisfies Theme

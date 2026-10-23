@@ -189,7 +189,6 @@ const pillars = computed(() => [
 <style scoped>
 .hero {
   position: relative;
-  margin-inline: calc(50% - 50vw);
   padding: 74px 24px 56px;
   overflow: hidden;
   border-bottom: 1px solid var(--vp-c-divider);
@@ -357,7 +356,8 @@ const pillars = computed(() => [
 }
 
 .rail {
-  margin: 64px 0 0;
+  max-width: 1142px;
+  margin: 64px auto 0;
 }
 
 .rail__head,
@@ -392,7 +392,7 @@ const pillars = computed(() => [
   --c: var(--vp-c-text-2);
   position: relative;
   display: grid;
-  grid-template-columns: 168px 1fr auto;
+  grid-template-columns: 186px 1fr auto;
   align-items: center;
   gap: 16px;
   padding: 14px 18px;
@@ -431,8 +431,9 @@ const pillars = computed(() => [
 
 .lane__side {
   display: flex;
-  align-items: baseline;
-  gap: 8px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
   min-width: 0;
 }
 
@@ -448,6 +449,7 @@ const pillars = computed(() => [
   font-size: 13.5px;
   font-weight: 680;
   color: var(--vp-c-text-1);
+  white-space: nowrap;
 }
 
 .lane__desc {
@@ -471,12 +473,13 @@ const pillars = computed(() => [
 }
 
 .sec {
-  margin-top: 64px;
+  max-width: 1142px;
+  margin: 64px auto 0;
 }
 
 .pillars {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(258px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 12px;
 }
 
@@ -521,7 +524,7 @@ const pillars = computed(() => [
 
 .feat {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(218px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 10px;
 }
 
@@ -581,6 +584,13 @@ const pillars = computed(() => [
   border-top: 1px solid var(--vp-c-divider);
 }
 
+@media (max-width: 980px) {
+  .pillars,
+  .feat {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 820px) {
   .stats {
     grid-template-columns: repeat(2, 1fr);
@@ -592,6 +602,13 @@ const pillars = computed(() => [
 
   .lane__side {
     grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 620px) {
+  .pillars,
+  .feat {
+    grid-template-columns: 1fr;
   }
 }
 
