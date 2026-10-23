@@ -96,7 +96,7 @@ const feats = (p) => (isZh.value ? p.zh.features : p.en.features)
           </div>
           <p class="card__tagline">{{ L(p.en.tagline, p.zh.tagline) }}</p>
           <ul class="card__feats">
-            <li v-for="f in feats(p).slice(0, 3)" :key="f[0]">{{ f[0] }}</li>
+            <li v-for="f in feats(p).slice(0, 3)" :key="f[0]" :title="f[0]">{{ f[0] }}</li>
           </ul>
           <div class="card__foot">
             <span class="card__lang">{{ p.lang }}</span>
@@ -382,9 +382,14 @@ const feats = (p) => (isZh.value ? p.zh.features : p.en.features)
 .card__tagline {
   margin: 0 0 10px;
   font-size: 13px;
-  line-height: 1.55;
+  line-height: 20px;
   color: var(--vp-c-text-2);
+  /* 固定占 2 行：单行卡片也能与双行卡片对齐，超过 2 行则省略 */
   min-height: 40px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .card__feats {
@@ -397,13 +402,22 @@ const feats = (p) => (isZh.value ? p.zh.features : p.en.features)
 }
 
 .card__feats li {
+  display: block;
+  margin: 0; /* 覆盖 .vp-doc li + li 的 margin-top: 8px，否则同一行 chip 会错位 */
+  min-width: 0;
+  max-width: 100%;
+  height: 24px;
+  line-height: 22px;
   font-size: 11.5px;
   font-weight: 550;
   color: var(--vp-c-text-2);
   background: var(--vp-c-bg);
   border: 1px solid var(--vp-c-divider);
   border-radius: 6px;
-  padding: 2px 7px;
+  padding: 0 7px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .card__foot {
