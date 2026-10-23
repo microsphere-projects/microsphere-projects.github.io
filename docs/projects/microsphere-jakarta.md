@@ -1,36 +1,30 @@
 ---
 title: Microsphere Jakarta
-description: "面向 Jakarta EE 命名空间（jakarta.*）的实现分支，适配从 Java EE 迁移后的企业应用。"
+description: "An implementation track targeting the Jakarta EE namespace (jakarta.*), for enterprise applications that have completed the migration away from Java EE."
 outline: deep
 project:
   slug: microsphere-jakarta
-  name: Microsphere Jakarta
   layer: runtime
-  tagline: Jakarta EE 规范的 Microsphere 实现
-  lang: Java
-  stars: 2
-  forks: 6
-  artifactId: microsphere-jakarta
 ---
 
-<ProjectHeader />
+<ProjectHeader></ProjectHeader>
 
-## 它解决什么问题
+## Overview
 
-面向 Jakarta EE 命名空间（jakarta.*）的实现分支，适配从 Java EE 迁移后的企业应用。
+An implementation track targeting the Jakarta EE namespace (jakarta.*), for enterprise applications that have completed the migration away from Java EE.
 
-## 核心特性
+## Key Features
 
-- **Jakarta 命名空间** — 全面适配 jakarta.* 包名。
-- **与 Spring 6/7 对齐** — 匹配 Spring Framework 6+ 采用的 Jakarta 基线。
+- **Jakarta namespace** — Fully adapted to the jakarta.* package namespace.
+- **Aligned with Spring 6/7** — Matches the Jakarta baseline adopted by Spring Framework 6 and later.
 
-## 模块构成
+## Modules
 
-| 模块 | 说明 |
+| Module | |
 |------|------|
-| `microsphere-jakarta` | Jakarta EE 实现聚合模块 |
+| `microsphere-jakarta` | Aggregator module for the Jakarta EE implementations |
 
-## 引入依赖
+## Getting Started
 
 ```xml
 <dependencyManagement>
@@ -46,17 +40,17 @@ project:
 </dependencyManagement>
 ```
 
-## 环境要求
+## Requirements
 
-| 项目 | 版本 |
+| | |
 |------|------|
 | Java | 17+ |
 
-## 相关链接
+## Links
 
-- [GitHub 仓库](https://github.com/microsphere-projects/microsphere-jakarta)
-- [问题反馈](https://github.com/microsphere-projects/microsphere-jakarta/issues)
-- [DeepWiki 智能文档](https://deepwiki.com/microsphere-projects/microsphere-jakarta)
+- [GitHub Repository](https://github.com/microsphere-projects/microsphere-jakarta)
+- [Report an Issue](https://github.com/microsphere-projects/microsphere-jakarta/issues)
+- [DeepWiki Docs](https://deepwiki.com/microsphere-projects/microsphere-jakarta)
 - [Maven Central · microsphere-jakarta](https://central.sonatype.com/artifact/io.github.microsphere-projects/microsphere-jakarta)
 
-<ProjectNav />
+<ProjectNav></ProjectNav>

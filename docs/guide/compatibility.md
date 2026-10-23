@@ -1,31 +1,32 @@
 ---
-title: 版本兼容矩阵
-description: main 与 1.x 双版本线的适配范围对照
+title: Compatibility Matrix
+description: Supported ranges for the main and 1.x release lines
 outline: [2, 3]
 ---
 
-# 版本兼容矩阵
+# Compatibility Matrix
 
-Microsphere 采用 **双版本线** 维护策略：`main` 分支面向新一代框架，`1.x` 分支面向存量系统。
-两条线的功能基本一致，但编译基线不同。
+Microsphere maintains **two release lines**: `main` targets the current framework generation, `1.x` serves existing
+systems. Both offer the same feature set but compile against different baselines.
 
-::: warning 不要混用
-同一个应用中请勿同时引入 `0.2.x` 与 `0.1.x` 的模块，会导致类路径冲突与自动配置行为异常。
+::: warning Do not mix lines
+Never include both `0.2.x` and `0.1.x` modules in one application — it causes classpath conflicts and unpredictable
+auto-configuration behaviour.
 :::
 
-## 框架主线
+## Core frameworks
 
-| 子项目 | `main`（0.2.x） | `1.x`（0.1.x） |
-|--------|-----------------|----------------|
+| Sub-project | `main` (0.2.x) | `1.x` (0.1.x) |
+|-------------|----------------|---------------|
 | [microsphere-java](/projects/microsphere-java) | Java 8 – 25 | — |
 | [microsphere-spring](/projects/microsphere-spring) | Spring Framework 6.0.x – 7.0.x · `0.2.39` | Spring Framework 4.3.x – 5.3.x · `0.1.39` |
 | [microsphere-spring-boot](/projects/microsphere-spring-boot) | Spring Boot 3.0.x – 4.1.x · `0.2.34` | Spring Boot 2.0.x – 2.7.x · `0.1.34` |
 | [microsphere-spring-cloud](/projects/microsphere-spring-cloud) | Spring Cloud 2022.0.x – 2025.0.x · `0.2.26` | Hoxton – 2021.0.x · `0.1.26` |
 
-## 生态集成
+## Ecosystem integrations
 
-| 子项目 | `main` | `1.x` |
-|--------|--------|-------|
+| Sub-project | `main` | `1.x` |
+|-------------|--------|-------|
 | [microsphere-gateway](/projects/microsphere-gateway) | Spring Cloud 2022 / 2023 / 2024 / 2025 | Hoxton – 2021.0.x |
 | [microsphere-redis](/projects/microsphere-redis) | Spring Data Redis 3.0.0 – 3.5.x · `0.2.14` | Spring Data Redis 2.1.0 – 2.7.x · `0.1.14` |
 | [microsphere-mybatis](/projects/microsphere-mybatis) | `0.2.16` | `0.1.16` |
@@ -39,21 +40,22 @@ Microsphere 采用 **双版本线** 维护策略：`main` 分支面向新一代�
 | [microsphere-observability](/projects/microsphere-observability) | `0.2.3` | `0.1.3` |
 | [microsphere-i18n](/projects/microsphere-i18n) | `0.2.21` | `0.1.21` |
 
-## JDK 支持
+## JDK support
 
-`microsphere-build` 父 POM 覆盖 **Java 8 / 11 / 17 / 21 / 25** 五个 TLS 版本。
-但具体子项目有各自的基线：
+The `microsphere-build` parent POM covers **Java 8 / 11 / 17 / 21 / 25**, but individual sub-projects have their own
+baselines:
 
-| 基线 | 项目 |
-|------|------|
-| Java 8+ | `microsphere-java`、`microsphere-logging`、`microsphere-java-enterprise`、`microsphere-test`、`microsphere-tools` |
-| Java 17+ | `microsphere-spring`、`microsphere-spring-boot`、`microsphere-spring-cloud`、`microsphere-i18n`、`microsphere-gateway`、`microsphere-hibernate`(0.2.x)、`microsphere-multiactive` |
+| Baseline | Projects |
+|----------|----------|
+| Java 8+ | `microsphere-java`, `microsphere-logging`, `microsphere-java-enterprise`, `microsphere-test`, `microsphere-tools` |
+| Java 17+ | `microsphere-spring`, `microsphere-spring-boot`, `microsphere-spring-cloud`, `microsphere-i18n`, `microsphere-gateway`, `microsphere-hibernate` (0.2.x), `microsphere-multiactive` |
 
-CI 会在 Java 17、21、25 上对 Spring Cloud 2022 / 2023 / 2024 / 2025 四个 profile 做全矩阵验证。
+CI verifies the full matrix on Java 17, 21 and 25 against the Spring Cloud 2022 / 2023 / 2024 / 2025 profiles.
 
-## 切换 Spring Cloud 版本
+## Switching Spring Cloud versions
 
-`main` 分支默认构建于 Spring Cloud 2025.0.x。如需针对旧代际构建或测试，激活对应 Maven profile：
+The `main` branch builds against Spring Cloud 2025.0.x by default. To build or test against an older generation,
+activate the corresponding Maven profile:
 
 ```bash
 ./mvnw verify -P spring-cloud-2022

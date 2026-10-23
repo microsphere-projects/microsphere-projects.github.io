@@ -1,35 +1,29 @@
 ---
 title: Microsphere Dynamic
-description: "为生态提供动态化基础能力，支撑运行时配置刷新、Feign 组件热更新等免重启变更场景。"
+description: "Provides the dynamism foundation for the ecosystem, supporting restart-free change scenarios such as runtime configuration refresh and hot updates of Feign components."
 outline: deep
 project:
   slug: microsphere-dynamic
-  name: Microsphere Dynamic
   layer: crosscutting
-  tagline: 动态化能力支撑
-  lang: Java
-  stars: 3
-  forks: 7
-  artifactId: microsphere-dynamic
 ---
 
-<ProjectHeader />
+<ProjectHeader></ProjectHeader>
 
-## 它解决什么问题
+## Overview
 
-为生态提供动态化基础能力，支撑运行时配置刷新、Feign 组件热更新等免重启变更场景。
+Provides the dynamism foundation for the ecosystem, supporting restart-free change scenarios such as runtime configuration refresh and hot updates of Feign components.
 
-## 核心特性
+## Key Features
 
-- **动态化支撑** — 为运行时动态变更提供基础设施。
+- **Dynamic foundation** — Infrastructure for runtime dynamic changes.
 
-## 模块构成
+## Modules
 
-| 模块 | 说明 |
+| Module | |
 |------|------|
-| `microsphere-dynamic` | 动态化能力聚合模块 |
+| `microsphere-dynamic` | Aggregator module for dynamic capabilities |
 
-## 引入依赖
+## Getting Started
 
 ```xml
 <dependencyManagement>
@@ -45,17 +39,17 @@ project:
 </dependencyManagement>
 ```
 
-## 环境要求
+## Requirements
 
-| 项目 | 版本 |
+| | |
 |------|------|
 | Java | 8+ |
 
-## 相关链接
+## Links
 
-- [GitHub 仓库](https://github.com/microsphere-projects/microsphere-dynamic)
-- [问题反馈](https://github.com/microsphere-projects/microsphere-dynamic/issues)
-- [DeepWiki 智能文档](https://deepwiki.com/microsphere-projects/microsphere-dynamic)
+- [GitHub Repository](https://github.com/microsphere-projects/microsphere-dynamic)
+- [Report an Issue](https://github.com/microsphere-projects/microsphere-dynamic/issues)
+- [DeepWiki Docs](https://deepwiki.com/microsphere-projects/microsphere-dynamic)
 - [Maven Central · microsphere-dynamic](https://central.sonatype.com/artifact/io.github.microsphere-projects/microsphere-dynamic)
 
-<ProjectNav />
+<ProjectNav></ProjectNav>

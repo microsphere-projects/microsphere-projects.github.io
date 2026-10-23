@@ -1,37 +1,31 @@
 ---
 title: Microsphere BOM
-description: "集中声明 Microsphere 生态各模块的版本，使用者导入一次即可对齐全部依赖版本，避免多模块之间的版本冲突。"
+description: "Declares the versions of every Microsphere module in one place. Import it once to align all dependency versions and avoid conflicts across modules."
 outline: deep
 project:
   slug: microsphere-bom
-  name: Microsphere BOM
   layer: foundation
-  tagline: 跨项目的 Maven 物料清单
-  lang: Maven
-  stars: 0
-  forks: 1
-  artifactId: microsphere-bom
 ---
 
-<ProjectHeader />
+<ProjectHeader></ProjectHeader>
 
-## 它解决什么问题
+## Overview
 
-集中声明 Microsphere 生态各模块的版本，使用者导入一次即可对齐全部依赖版本，避免多模块之间的版本冲突。
+Declares the versions of every Microsphere module in one place. Import it once to align all dependency versions and avoid conflicts across modules.
 
-## 核心特性
+## Key Features
 
-- **单点版本对齐** — 导入 BOM 后无需为每个模块指定 `&lt;version&gt;`。
-- **跨仓库一致性** — 与各子项目的 dependencies 模块保持版本同步。
-- **与 Build 协同** — 配合 microsphere-build 父 POM 使用，构建与依赖口径统一。
+- **Single point of version alignment** — No need to declare a version for each module after importing the BOM.
+- **Cross-repository consistency** — Kept in sync with each sub-project's own dependencies module.
+- **Works with Build** — Pairs with the microsphere-build parent POM for a single build and dependency baseline.
 
-## 模块构成
+## Modules
 
-| 模块 | 说明 |
+| Module | |
 |------|------|
-| `microsphere-bom` | 顶层 BOM，聚合各子项目版本 |
+| `microsphere-bom` | Top-level BOM aggregating every sub-project version |
 
-## 引入依赖
+## Getting Started
 
 ```xml
 <dependencyManagement>
@@ -47,18 +41,18 @@ project:
 </dependencyManagement>
 ```
 
-## 环境要求
+## Requirements
 
-| 项目 | 版本 |
+| | |
 |------|------|
 | Java | 8+ |
 | Maven | 3.6+ |
 
-## 相关链接
+## Links
 
-- [GitHub 仓库](https://github.com/microsphere-projects/microsphere-bom)
-- [问题反馈](https://github.com/microsphere-projects/microsphere-bom/issues)
-- [DeepWiki 智能文档](https://deepwiki.com/microsphere-projects/microsphere-bom)
+- [GitHub Repository](https://github.com/microsphere-projects/microsphere-bom)
+- [Report an Issue](https://github.com/microsphere-projects/microsphere-bom/issues)
+- [DeepWiki Docs](https://deepwiki.com/microsphere-projects/microsphere-bom)
 - [Maven Central · microsphere-bom](https://central.sonatype.com/artifact/io.github.microsphere-projects/microsphere-bom)
 
-<ProjectNav />
+<ProjectNav></ProjectNav>

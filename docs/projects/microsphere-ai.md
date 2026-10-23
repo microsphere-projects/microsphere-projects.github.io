@@ -1,35 +1,29 @@
 ---
 title: Microsphere AI
-description: "Microsphere 在人工智能方向的探索性项目，探索生态能力在 AI 应用场景中的延展。"
+description: "Microsphere's exploratory track in artificial intelligence, investigating how ecosystem capabilities extend into AI application scenarios."
 outline: deep
 project:
   slug: microsphere-ai
-  name: Microsphere AI
   layer: crosscutting
-  tagline: 面向 AI 场景的探索项目
-  lang: Java
-  stars: 0
-  forks: 1
-  artifactId: microsphere-ai
 ---
 
-<ProjectHeader />
+<ProjectHeader></ProjectHeader>
 
-## 它解决什么问题
+## Overview
 
-Microsphere 在人工智能方向的探索性项目，探索生态能力在 AI 应用场景中的延展。
+Microsphere's exploratory track in artificial intelligence, investigating how ecosystem capabilities extend into AI application scenarios.
 
-## 核心特性
+## Key Features
 
-- **AI 场景探索** — 面向 AI 应用场景的能力探索。
+- **AI exploration** — Exploration of capabilities for AI application scenarios.
 
-## 模块构成
+## Modules
 
-| 模块 | 说明 |
+| Module | |
 |------|------|
-| `microsphere-ai` | AI 能力聚合模块 |
+| `microsphere-ai` | Aggregator module for AI capabilities |
 
-## 引入依赖
+## Getting Started
 
 ```xml
 <dependencyManagement>
@@ -45,17 +39,17 @@ Microsphere 在人工智能方向的探索性项目，探索生态能力在 AI �
 </dependencyManagement>
 ```
 
-## 环境要求
+## Requirements
 
-| 项目 | 版本 |
+| | |
 |------|------|
 | Java | 17+ |
 
-## 相关链接
+## Links
 
-- [GitHub 仓库](https://github.com/microsphere-projects/microsphere-ai)
-- [问题反馈](https://github.com/microsphere-projects/microsphere-ai/issues)
-- [DeepWiki 智能文档](https://deepwiki.com/microsphere-projects/microsphere-ai)
+- [GitHub Repository](https://github.com/microsphere-projects/microsphere-ai)
+- [Report an Issue](https://github.com/microsphere-projects/microsphere-ai/issues)
+- [DeepWiki Docs](https://deepwiki.com/microsphere-projects/microsphere-ai)
 - [Maven Central · microsphere-ai](https://central.sonatype.com/artifact/io.github.microsphere-projects/microsphere-ai)
 
-<ProjectNav />
+<ProjectNav></ProjectNav>

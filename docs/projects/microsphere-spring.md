@@ -1,46 +1,38 @@
 ---
 title: Microsphere Spring
-description: "以模块化方式解决真实生产场景中的 Spring 痛点：增强依赖注入、配置管理、Web 端点处理、事件、缓存与 JDBC 监控。它是纯粹的增量增强，可作为 drop-in 依赖接入任何既有 Spring 应用。"
+description: "Solves real production pain points in a modular way: enhancing dependency injection, configuration management, web endpoint handling, events, caching and JDBC monitoring. It is a pure additive enhancement — a drop-in dependency for any existing Spring application."
 outline: deep
 project:
   slug: microsphere-spring
-  name: Microsphere Spring
   layer: framework
-  tagline: 面向生产环境的 Spring Framework 扩展库
-  lang: Java
-  stars: 61
-  forks: 39
-  artifactId: microsphere-spring-context
-  bom: microsphere-spring-dependencies
-  version: 0.2.39
 ---
 
-<ProjectHeader />
+<ProjectHeader></ProjectHeader>
 
-## 它解决什么问题
+## Overview
 
-以模块化方式解决真实生产场景中的 Spring 痛点：增强依赖注入、配置管理、Web 端点处理、事件、缓存与 JDBC 监控。它是纯粹的增量增强，可作为 drop-in 依赖接入任何既有 Spring 应用。
+Solves real production pain points in a modular way: enhancing dependency injection, configuration management, web endpoint handling, events, caching and JDBC monitoring. It is a pure additive enhancement — a drop-in dependency for any existing Spring application.
 
-## 核心特性
+## Key Features
 
-- **并行 Bean 实例化** — 解析 Bean 依赖图，并发初始化互不依赖的单例，显著缩短启动时间。
-- **可监听的 Environment** — 通过 EnvironmentListener / PropertyResolverListener 拦截属性解析与 profile 激活事件。
-- **增强的 @PropertySource** — @ResourcePropertySource 支持通配符资源、顺序控制、继承、变更自动刷新，并提供 @YamlPropertySource、@JsonPropertySource。
-- **TTL 缓存** — @EnableTTLCaching / @TTLCacheable 为 Spring Cache 增加条目级过期时间，支持 Redis。
-- **Web 端点注册表** — 启动时收集 Spring MVC、WebFlux 与经典 Servlet 的 WebEndpointMapping 元数据，供内省与路由使用。
-- **Handler 方法拦截** — HandlerMethodInterceptor / HandlerMethodArgumentInterceptor 提供围绕 MVC 与 WebFlux 控制器调用的 AOP 式钩子。
-- **P6Spy JDBC 监控** — @EnableP6DataSource 透明包装既有 DataSource Bean，实现 SQL 追踪。
-- **Google Guice 集成** — @EnableGuice 把 Guice @Inject 注入点桥接到 Spring Bean 生命周期。
-- **丰富的测试工具** — EmbeddedTomcatContextLoader、EnableEmbeddedDatabase、AbstractWebFluxTest 等。
+- **Parallel bean instantiation** — Resolves the bean dependency graph and initialises independent singletons concurrently to cut startup time.
+- **Listenable Environment** — Intercepts property resolution and profile activation via EnvironmentListener and PropertyResolverListener.
+- **Enhanced @PropertySource** — @ResourcePropertySource adds wildcard patterns, ordering, inheritance and auto-refresh on change, plus @YamlPropertySource and @JsonPropertySource.
+- **TTL caching** — @EnableTTLCaching / @TTLCacheable add per-entry time-to-live to Spring Cache, including Redis.
+- **Web endpoint registry** — Collects WebEndpointMapping metadata from Spring MVC, WebFlux and classic Servlet at startup for introspection and routing.
+- **Handler method interception** — HandlerMethodInterceptor / HandlerMethodArgumentInterceptor provide AOP-style hooks around MVC and WebFlux controller invocations.
+- **P6Spy JDBC monitoring** — @EnableP6DataSource transparently wraps existing DataSource beans for SQL tracing.
+- **Google Guice integration** — @EnableGuice bridges Guice @Inject injection points into the Spring bean lifecycle.
+- **Rich testing utilities** — EmbeddedTomcatContextLoader, @EnableEmbeddedDatabase, AbstractWebFluxTest and servlet/MVC test helpers.
 
-## 用法示例
+## Usage Example
 
 ```java
 @Configuration
 @ResourcePropertySource(
         name = "app-config",
         value = "classpath*:/META-INF/config/*.properties",
-        autoRefreshed = true)      // 任一匹配文件变化即自动重载
+        autoRefreshed = true)      // reload whenever any matched file changes
 public class AppConfig { }
 
 @Configuration
@@ -55,23 +47,23 @@ public Product findById(Long id) { ... }
 public class WebConfig { }
 
 @Configuration
-@EnableP6DataSource          // 透明包裹所有 DataSource，零改代码接入 SQL 追踪
+@EnableP6DataSource          // wraps every DataSource transparently — zero code changes
 public class DataSourceConfig { }
 ```
 
-## 模块构成
+## Modules
 
-| 模块 | 说明 |
+| Module | |
 |------|------|
-| `microsphere-spring-context` | 核心上下文与配置扩展：@ResourcePropertySource、@EnableTTLCaching、@EnableConfigurationBeanBinding |
-| `microsphere-spring-web` | 共享 Web 抽象：WebEndpointMapping、HandlerMethodInterceptor、@EnableWebExtension、@Idempotent |
-| `microsphere-spring-webmvc` | Spring MVC 扩展：@EnableWebMvcExtension、ReversedProxyHandlerMapping |
-| `microsphere-spring-webflux` | 响应式扩展：@EnableWebFluxExtension、InterceptingHandlerMethodProcessor |
-| `microsphere-spring-jdbc` | JDBC / P6Spy 集成：@EnableP6DataSource |
-| `microsphere-spring-guice` | Google Guice 桥接：@EnableGuice |
-| `microsphere-spring-test` | 测试工具：@EnableEmbeddedDatabase、EmbeddedTomcatContextLoader |
+| `microsphere-spring-context` | Core context and configuration extensions: @ResourcePropertySource, @EnableTTLCaching, @EnableConfigurationBeanBinding |
+| `microsphere-spring-web` | Shared web abstractions: WebEndpointMapping, HandlerMethodInterceptor, @EnableWebExtension, @Idempotent |
+| `microsphere-spring-webmvc` | Spring MVC extensions: @EnableWebMvcExtension, ReversedProxyHandlerMapping |
+| `microsphere-spring-webflux` | Reactive web extensions: @EnableWebFluxExtension, InterceptingHandlerMethodProcessor |
+| `microsphere-spring-jdbc` | JDBC / P6Spy integration: @EnableP6DataSource |
+| `microsphere-spring-guice` | Google Guice bridge: @EnableGuice |
+| `microsphere-spring-test` | Testing utilities: @EnableEmbeddedDatabase, EmbeddedTomcatContextLoader |
 
-## 引入依赖
+## Getting Started
 
 ```xml
 <dependencyManagement>
@@ -87,7 +79,7 @@ public class DataSourceConfig { }
 </dependencyManagement>
 ```
 
-然后按需引入模块（版本由 BOM 管理，无需指定）：
+Then add only the modules you need — versions are managed by the BOM:
 
 ```xml
 <dependencies>
@@ -98,26 +90,26 @@ public class DataSourceConfig { }
 </dependencies>
 ```
 
-## 环境要求
+## Requirements
 
-| 项目 | 版本 |
+| | |
 |------|------|
 | Java | 17+ |
-| Spring Framework | 6.0.x – 7.0.x（main）/ 4.3.x – 5.3.x（1.x） |
+| Spring Framework | 6.0.x – 7.0.x (main) / 4.3.x – 5.3.x (1.x) |
 | Maven | 3.6+ |
 
-### 版本线
+### Version Lines
 
-| 分支 | 兼容范围 | 最新版本 |
+| Branch | | |
 |------|----------|----------|
 | `main` | 6.0.x – 7.0.x | `0.2.39` |
 | `1.x` | 4.3.x – 5.3.x | `0.1.39` |
 
-## 相关链接
+## Links
 
-- [GitHub 仓库](https://github.com/microsphere-projects/microsphere-spring)
-- [问题反馈](https://github.com/microsphere-projects/microsphere-spring/issues)
-- [DeepWiki 智能文档](https://deepwiki.com/microsphere-projects/microsphere-spring)
+- [GitHub Repository](https://github.com/microsphere-projects/microsphere-spring)
+- [Report an Issue](https://github.com/microsphere-projects/microsphere-spring/issues)
+- [DeepWiki Docs](https://deepwiki.com/microsphere-projects/microsphere-spring)
 - [Maven Central · microsphere-spring-context](https://central.sonatype.com/artifact/io.github.microsphere-projects/microsphere-spring-context)
 
-<ProjectNav />
+<ProjectNav></ProjectNav>

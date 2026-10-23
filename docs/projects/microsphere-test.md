@@ -1,35 +1,29 @@
 ---
 title: Microsphere Test
-description: "为 Microsphere 各子项目提供共享的测试基座与断言工具，保证测试风格在全生态内一致。"
+description: "Provides a shared testing baseline and assertion utilities so every Microsphere sub-project follows the same testing conventions."
 outline: deep
 project:
   slug: microsphere-test
-  name: Microsphere Test
   layer: runtime
-  tagline: 跨项目测试基础设施
-  lang: Java
-  stars: 0
-  forks: 0
-  artifactId: microsphere-test
 ---
 
-<ProjectHeader />
+<ProjectHeader></ProjectHeader>
 
-## 它解决什么问题
+## Overview
 
-为 Microsphere 各子项目提供共享的测试基座与断言工具，保证测试风格在全生态内一致。
+Provides a shared testing baseline and assertion utilities so every Microsphere sub-project follows the same testing conventions.
 
-## 核心特性
+## Key Features
 
-- **统一测试基座** — 集中提供测试基类与辅助断言。
+- **Unified testing baseline** — Centralised test base classes and helper assertions.
 
-## 模块构成
+## Modules
 
-| 模块 | 说明 |
+| Module | |
 |------|------|
-| `microsphere-test` | 测试基础设施聚合模块 |
+| `microsphere-test` | Aggregator module for testing infrastructure |
 
-## 引入依赖
+## Getting Started
 
 ```xml
 <dependencyManagement>
@@ -45,17 +39,17 @@ project:
 </dependencyManagement>
 ```
 
-## 环境要求
+## Requirements
 
-| 项目 | 版本 |
+| | |
 |------|------|
 | Java | 8+ |
 
-## 相关链接
+## Links
 
-- [GitHub 仓库](https://github.com/microsphere-projects/microsphere-test)
-- [问题反馈](https://github.com/microsphere-projects/microsphere-test/issues)
-- [DeepWiki 智能文档](https://deepwiki.com/microsphere-projects/microsphere-test)
+- [GitHub Repository](https://github.com/microsphere-projects/microsphere-test)
+- [Report an Issue](https://github.com/microsphere-projects/microsphere-test/issues)
+- [DeepWiki Docs](https://deepwiki.com/microsphere-projects/microsphere-test)
 - [Maven Central · microsphere-test](https://central.sonatype.com/artifact/io.github.microsphere-projects/microsphere-test)
 
-<ProjectNav />
+<ProjectNav></ProjectNav>

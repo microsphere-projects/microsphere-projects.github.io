@@ -1,45 +1,40 @@
 ---
 title: Microsphere DevOps
-description: "承载 Microsphere 生态的 DevOps 能力，覆盖构建、发布与环境管理等工程效能环节，并配套独立的 UI 项目。"
+description: "Carries the DevOps capabilities of the ecosystem, covering build, release and environment management, with a companion TypeScript UI project."
 outline: deep
 project:
   slug: microsphere-devops
-  name: Microsphere DevOps
   layer: crosscutting
-  tagline: 生态的工程效能与运维支撑
-  lang: Shell
-  stars: 5
-  forks: 6
 ---
 
-<ProjectHeader />
+<ProjectHeader></ProjectHeader>
 
-## 它解决什么问题
+## Overview
 
-承载 Microsphere 生态的 DevOps 能力，覆盖构建、发布与环境管理等工程效能环节，并配套独立的 UI 项目。
+Carries the DevOps capabilities of the ecosystem, covering build, release and environment management, with a companion TypeScript UI project.
 
-## 核心特性
+## Key Features
 
-- **工程效能** — 支撑生态的持续集成与交付流程。
-- **配套 UI** — 由 microsphere-devops-ui（TypeScript）提供可视化界面。
+- **Engineering efficiency** — Supports the continuous integration and delivery flows of the ecosystem.
+- **Companion UI** — microsphere-devops-ui (TypeScript) provides a visual interface.
 
-## 模块构成
+## Modules
 
-| 模块 | 说明 |
+| Module | |
 |------|------|
-| `microsphere-devops` | DevOps 脚本与配置 |
-| `microsphere-devops-ui` | TypeScript 编写的 DevOps UI |
+| `microsphere-devops` | DevOps scripts and configuration |
+| `microsphere-devops-ui` | DevOps UI written in TypeScript |
 
-## 环境要求
+## Requirements
 
-| 项目 | 版本 |
+| | |
 |------|------|
-| Node | 18+（devops-ui） |
+| Node | 18+ (devops-ui) |
 
-## 相关链接
+## Links
 
-- [GitHub 仓库](https://github.com/microsphere-projects/microsphere-devops)
-- [问题反馈](https://github.com/microsphere-projects/microsphere-devops/issues)
-- [DeepWiki 智能文档](https://deepwiki.com/microsphere-projects/microsphere-devops)
+- [GitHub Repository](https://github.com/microsphere-projects/microsphere-devops)
+- [Report an Issue](https://github.com/microsphere-projects/microsphere-devops/issues)
+- [DeepWiki Docs](https://deepwiki.com/microsphere-projects/microsphere-devops)
 
-<ProjectNav />
+<ProjectNav></ProjectNav>

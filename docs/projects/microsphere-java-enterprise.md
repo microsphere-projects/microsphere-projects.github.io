@@ -1,37 +1,31 @@
 ---
 title: Microsphere Java EE
-description: "以 Microsphere 的方式实现 Java EE（Jakarta EE 前身）规范，为需要标准化企业 API 的场景提供与生态一致的编程模型。"
+description: "Implements the Java EE (pre-Jakarta) specifications the Microsphere way, offering a programming model consistent with the rest of the ecosystem for teams that need standardised enterprise APIs."
 outline: deep
 project:
   slug: microsphere-java-enterprise
-  name: Microsphere Java EE
   layer: runtime
-  tagline: Java EE 规范的 Microsphere 实现
-  lang: Java
-  stars: 14
-  forks: 18
-  artifactId: microsphere-java-enterprise
 ---
 
-<ProjectHeader />
+<ProjectHeader></ProjectHeader>
 
-## 它解决什么问题
+## Overview
 
-以 Microsphere 的方式实现 Java EE（Jakarta EE 前身）规范，为需要标准化企业 API 的场景提供与生态一致的编程模型。
+Implements the Java EE (pre-Jakarta) specifications the Microsphere way, offering a programming model consistent with the rest of the ecosystem for teams that need standardised enterprise APIs.
 
-## 核心特性
+## Key Features
 
-- **规范实现** — 按 Java EE 规范提供对应实现模块。
-- **生态一致性** — 复用 Microsphere Java 的反射、类型转换与事件能力。
-- **与 Jakarta 分支并行** — 与 microsphere-jakarta 形成 EE / Jakarta 双线支持。
+- **Specification implementations** — Provides implementation modules for the corresponding Java EE specifications.
+- **Ecosystem consistency** — Reuses the reflection, type conversion and event capabilities of Microsphere Java.
+- **Parallel with the Jakarta line** — Forms a dual EE / Jakarta support track together with microsphere-jakarta.
 
-## 模块构成
+## Modules
 
-| 模块 | 说明 |
+| Module | |
 |------|------|
-| `microsphere-java-enterprise` | Java EE 规范实现聚合模块 |
+| `microsphere-java-enterprise` | Aggregator module for the Java EE implementations |
 
-## 引入依赖
+## Getting Started
 
 ```xml
 <dependencyManagement>
@@ -47,17 +41,17 @@ project:
 </dependencyManagement>
 ```
 
-## 环境要求
+## Requirements
 
-| 项目 | 版本 |
+| | |
 |------|------|
 | Java | 8+ |
 
-## 相关链接
+## Links
 
-- [GitHub 仓库](https://github.com/microsphere-projects/microsphere-java-enterprise)
-- [问题反馈](https://github.com/microsphere-projects/microsphere-java-enterprise/issues)
-- [DeepWiki 智能文档](https://deepwiki.com/microsphere-projects/microsphere-java-enterprise)
+- [GitHub Repository](https://github.com/microsphere-projects/microsphere-java-enterprise)
+- [Report an Issue](https://github.com/microsphere-projects/microsphere-java-enterprise/issues)
+- [DeepWiki Docs](https://deepwiki.com/microsphere-projects/microsphere-java-enterprise)
 - [Maven Central · microsphere-java-enterprise](https://central.sonatype.com/artifact/io.github.microsphere-projects/microsphere-java-enterprise)
 
-<ProjectNav />
+<ProjectNav></ProjectNav>

@@ -1,42 +1,44 @@
 ---
 layout: page
-title: Microsphere Projects — Java / Spring 生态分层增强体系
-description: Microsphere Projects 官方站点，32 个子项目、五层架构、统一 BOM 与版本矩阵。
+title: Microsphere Projects — a layered enhancement system for Java and Spring
+description: The official site of Microsphere Projects — 32 sub-projects across five architectural layers, with unified BOMs and a full compatibility matrix.
 outline: false
 ---
 
-<HomeHero></HomeHero>
+<HomeHero />
 
 ---
 
-## 一分钟了解 Microsphere
+## Microsphere in one minute
 
-Microsphere Projects 是一个由 **36 个 GitHub 仓库**组成的开源组织，围绕 Java 与 Spring 生态提供分层增强。
-它不是一个单一框架，而是一套**可以按需组合的能力矩阵**：你可以只用最底部的 `microsphere-java` 作为工具库，
-也可以引入 Spring Cloud 增强实现免重启的 Feign 配置刷新，再往上叠加可观测性、国际化与多活路由。
+Microsphere Projects is an open-source organisation of **36 GitHub repositories** that provides layered
+enhancements for the Java and Spring ecosystem. It is not a single framework but a **composable capability matrix**:
+you can use `microsphere-java` purely as a utility library, add Spring Cloud extensions to get restart-free Feign
+refresh, or stack observability, internationalisation and multi-active routing on top.
 
-所有项目共享同一套工程约定：
+Every project shares the same engineering contract:
 
-- **统一 Group ID** — `io.github.microsphere-projects`
-- **统一 BOM 治理** — 每个子项目都提供 `*-dependencies` 模块，导入一次即可对齐全部版本
-- **统一构建口径** — `microsphere-build` 父 POM 覆盖 Java 8 / 11 / 17 / 21 / 25
-- **双版本线** — `main` 面向新一代（Spring Boot 3/4、Spring Cloud 2022–2025），`1.x` 面向存量（Spring Boot 2、Hoxton–2021）
+- **One Group ID** — `io.github.microsphere-projects`
+- **One BOM convention** — every sub-project ships a `*-dependencies` module, so importing once aligns all versions
+- **One build baseline** — the `microsphere-build` parent POM covers Java 8 / 11 / 17 / 21 / 25
+- **Two release lines** — `main` targets the current generation (Spring Boot 3/4, Spring Cloud 2022–2025),
+  while `1.x` serves existing systems (Spring Boot 2, Hoxton–2021)
 
-## 哪些场景适合用它
+## Where it fits
 
-| 场景 | 对应能力 | 入口项目 |
-|------|----------|----------|
-| 启动慢，Bean 初始化串行 | 解析依赖图，并发生成互不依赖的单例 | [Spring](/projects/microsphere-spring) |
-| 改一次配置就要重启发布 | 配置变更驱动 Feign / 属性源 / i18n 消息热更新 | [Spring Cloud](/projects/microsphere-spring-cloud) |
-| 线上想看 SQL 慢在哪 | 非侵入拦截 SQL 并接入 Micrometer | [Observability](/projects/microsphere-observability) |
-| 接口需要流控与熔断 | 统一模型覆盖 Web / DB / Redis | [Sentinel](/projects/microsphere-alibaba-sentinel) |
-| 多语言消息要集中管理 | 分层消息源 + 集中式 i18n Server | [i18n](/projects/microsphere-i18n) |
-| 同一实例要注册到多个注册中心 | 统一 API 多注册中心 + 联合 DiscoveryClient | [Spring Cloud](/projects/microsphere-spring-cloud) |
-| 多活单元化，优先同区调用 | Zone 感知路由与跨区兜底 | [Multiactive](/projects/microsphere-multiactive) |
-| 网关路由不想在每个服务里重复写 | `we://` 协议基于服务发现动态路由 | [Gateway](/projects/microsphere-gateway) |
+| If you need to… | Capability | Entry point |
+|-----------------|------------|-------------|
+| Cut slow startup caused by serial bean creation | Resolve the dependency graph and build independent singletons concurrently | [Spring](/projects/microsphere-spring) |
+| Stop redeploying for every configuration change | Hot-refresh Feign, property sources and i18n messages on change | [Spring Cloud](/projects/microsphere-spring-cloud) |
+| See where slow SQL goes in production | Intercept SQL non-intrusively and feed Micrometer | [Observability](/projects/microsphere-observability) |
+| Add rate limiting and circuit breaking | One model across web, database and Redis | [Sentinel](/projects/microsphere-alibaba-sentinel) |
+| Centralise messages for many locales | Layered message sources plus a centralised i18n server | [i18n](/projects/microsphere-i18n) |
+| Register one instance with several registries | Unified multi-registry API and a union discovery client | [Spring Cloud](/projects/microsphere-spring-cloud) |
+| Prefer same-zone calls in an active-active setup | Zone-aware routing with cross-zone fallback | [Multiactive](/projects/microsphere-multiactive) |
+| Avoid duplicating gateway routes per service | The `we://` scheme routes discovered endpoints dynamically | [Gateway](/projects/microsphere-gateway) |
 
-## 接下来
+## Next steps
 
-- [架构大图](/architecture) — 五层架构与全部子项目的交互关系，可交互查看
-- [子项目总览](/projects/) — 支持搜索、按分层/热度/名称排序的完整清单
-- [快速开始](/guide/getting-started) — 从引入 BOM 到跑通第一个特性
+- [Architecture](/architecture) — the five layers and how every sub-project fits together, fully interactive
+- [All projects](/projects/) — the complete catalogue with search, layer filters and sorting
+- [Getting started](/guide/getting-started) — from importing a BOM to your first feature

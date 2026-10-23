@@ -1,6 +1,9 @@
 <script setup>
 import { computed } from 'vue'
 import data from '../data/projects.json'
+import { useLocale } from '../composables/useLocale'
+
+const { L, isZh, base } = useLocale()
 
 const projects = data.projects
 const layers = data.layers
@@ -8,50 +11,56 @@ const layers = data.layers
 const stats = computed(() => {
   const stars = projects.reduce((n, p) => n + p.stars, 0)
   const forks = projects.reduce((n, p) => n + p.forks, 0)
-  const feats = projects.reduce((n, p) => n + p.features.length, 0)
-  const mods = projects.reduce((n, p) => n + p.modules.length, 0)
+  const feats = projects.reduce((n, p) => n + p.en.features.length, 0)
+  const mods = projects.reduce((n, p) => n + p.en.modules.length, 0)
   return [
-    { k: '36', label: 'GitHub 仓库', sub: '32 个已建档子项目' },
+    { k: '36', label: L('GitHub repositories', 'GitHub 仓库'), sub: L('32 documented sub-projects', '32 个已建档子项目') },
     { k: String(stars), label: 'Stars', sub: `Forks ${forks}` },
-    { k: String(feats), label: '项特性', sub: `${mods} 个 Maven 模块` },
-    { k: '5', label: '架构分层', sub: '基座 → 框架 → 生态' },
+    { k: String(feats), label: L('features', '项特性'), sub: L(`${mods} Maven modules`, `${mods} 个 Maven 模块`) },
+    { k: '5', label: L('architecture layers', '架构分层'), sub: L('foundation → framework → ecosystem', '基座 → 框架 → 生态') },
   ]
 })
 
 const top = computed(() => [...projects].sort((a, b) => b.stars - a.stars).slice(0, 6))
 
-const pillars = [
+const pillars = computed(() => [
   {
     icon: 'M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5',
-    title: '自下而上的分层地基',
-    desc: 'microsphere-java 提供字符串、反射、类型转换、事件分发等零框架依赖的基础能力，全生态共享同一套语义。',
+    title: L('A layered foundation, bottom up', '自下而上的分层地基'),
+    desc: L('microsphere-java supplies framework-free building blocks — strings, reflection, type conversion, event dispatch — shared by every layer with identical semantics.',
+      'microsphere-java 提供字符串、反射、类型转换、事件分发等零框架依赖的基础能力，全生态共享同一套语义。'),
   },
   {
     icon: 'M13 2L3 14h9l-1 8 10-12h-9l1-8z',
-    title: '免重启的运行时动态性',
-    desc: '配置变更驱动 Feign 组件热刷新、属性源自动重载、i18n 消息在线更新——变更生效不依赖应用重启。',
+    title: L('Runtime dynamism without restarts', '免重启的运行时动态性'),
+    desc: L('Configuration changes drive Feign hot-refresh, property source reloads and live i18n message updates — no application restart required.',
+      '配置变更驱动 Feign 组件热刷新、属性源自动重载、i18n 消息在线更新——变更生效不依赖应用重启。'),
   },
   {
     icon: 'M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z M12 9a3 3 0 100 6 3 3 0 000-6z',
-    title: '非侵入的可观测性',
-    desc: 'SQL、Redis、Feign 调用链通过拦截管道接入 Micrometer 与 Prometheus，无需改动一行业务代码。',
+    title: L('Non-intrusive observability', '非侵入的可观测性'),
+    desc: L('SQL, Redis and Feign call paths feed Micrometer and Prometheus through interception pipelines — not a single line of business code changes.',
+      'SQL、Redis、Feign 调用链通过拦截管道接入 Micrometer 与 Prometheus，无需改动一行业务代码。'),
   },
   {
     icon: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z',
-    title: '面向生产的韧性',
-    desc: 'Sentinel 与 Resilience4j 以统一编程模型覆盖 Web、数据库与缓存，流控与熔断渐进式接入。',
+    title: L('Resilience built for production', '面向生产的韧性'),
+    desc: L('Sentinel and Resilience4j share one programming model across web, database and cache — flow control and circuit breaking adopted incrementally.',
+      'Sentinel 与 Resilience4j 以统一编程模型覆盖 Web、数据库与缓存，流控与熔断渐进式接入。'),
   },
   {
     icon: 'M4 4h16v16H4z M9 9h6v6H9z',
-    title: '严谨的工程治理',
-    desc: '统一父 POM 覆盖 Java 8–25 五个 TLS 版本，六套 Maven profile 管理构建、签名、覆盖率与发布。',
+    title: L('Rigorous engineering governance', '严谨的工程治理'),
+    desc: L('One parent POM covers five Java TLS versions; six Maven profiles manage build, signing, coverage and release.',
+      '统一父 POM 覆盖 Java 8–25 五个 TLS 版本，六套 Maven profile 管理构建、签名、覆盖率与发布。'),
   },
   {
     icon: 'M21 12a9 9 0 11-18 0 9 9 0 0118 0z M12 7v5l3 2',
-    title: '长周期版本兼容',
-    desc: 'main 与 1.x 双线并行，同一套代码横跨 Spring Boot 2.x–4.x、Spring Cloud Hoxton–2025.x。',
+    title: L('Long-lifecycle compatibility', '长周期版本兼容'),
+    desc: L('main and 1.x lines run in parallel, carrying one codebase across Spring Boot 2.x–4.x and Spring Cloud Hoxton–2025.x.',
+      'main 与 1.x 双线并行，同一套代码横跨 Spring Boot 2.x–4.x、Spring Cloud Hoxton–2025.x。'),
   },
-]
+])
 </script>
 
 <template>
@@ -61,7 +70,7 @@ const pillars = [
     <div class="hero__inner">
       <div class="hero__badge">
         <span class="hero__dot" />
-        Apache-2.0 · Java 生态基础设施
+        {{ L('Apache-2.0 · Java ecosystem infrastructure', 'Apache-2.0 · Java 生态基础设施') }}
       </div>
 
       <h1 class="hero__title">
@@ -70,25 +79,33 @@ const pillars = [
       </h1>
 
       <p class="hero__lead">
-        一套围绕 <strong>Java / Spring 生态</strong> 构建的分层增强体系。从零框架的运行时基座出发，
-        逐层扩展到 Spring、Spring Boot、Spring Cloud 增强，再向外连接注册中心、数据访问、缓存、RPC 与容错组件，
-        并由可观测性、国际化、多活等横向能力贯穿始终。
+        <template v-if="!isZh">
+          A <strong>layered enhancement system</strong> for the Java and Spring ecosystem. It starts from a framework-free
+          runtime foundation, extends upward into Spring, Spring Boot and Spring Cloud, then connects registries, data
+          access, caching, RPC and resilience components — with observability, internationalisation and multi-active
+          routing running through every layer.
+        </template>
+        <template v-else>
+          一套围绕 <strong>Java / Spring 生态</strong> 构建的分层增强体系。从零框架的运行时基座出发，
+          逐层扩展到 Spring、Spring Boot、Spring Cloud 增强，再向外连接注册中心、数据访问、缓存、RPC 与容错组件，
+          并由可观测性、国际化、多活等横向能力贯穿始终。
+        </template>
       </p>
 
       <div class="hero__cta">
-        <a class="btn btn--primary" href="/architecture.html">
-          查看架构大图
+        <a class="btn btn--primary" :href="`${base}/architecture`">
+          {{ L('Explore the architecture', '查看架构大图') }}
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
             <path d="M5 12h13M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </a>
-        <a class="btn" href="/projects/">浏览全部子项目</a>
+        <a class="btn" :href="`${base}/projects/`">{{ L('Browse all projects', '浏览全部子项目') }}</a>
         <a class="btn btn--ghost" href="https://github.com/microsphere-projects" target="_blank" rel="noreferrer">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
             <path
               d="M12 .5A11.5 11.5 0 00.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.1.1 1.7 1.2 1.7 1.2 1 1.7 2.6 1.2 3.2.9.1-.7.4-1.2.7-1.5-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.4-2.3 1.1-3.1-.1-.3-.5-1.5.1-3 0 0 1.1-.4 3.6 1.4a12.3 12.3 0 016.4 0c2.5-1.8 3.6-1.4 3.6-1.4.6 1.5.2 2.7.1 3 .7.8 1.1 1.8 1.1 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A11.5 11.5 0 0023.5 12A11.5 11.5 0 0012 .5z" />
           </svg>
-          GitHub 组织
+          {{ L('GitHub organisation', 'GitHub 组织') }}
         </a>
       </div>
 
@@ -105,16 +122,17 @@ const pillars = [
   <!-- ---------- layer rail ---------- -->
   <div class="rail">
     <div class="rail__head">
-      <h2>五层架构</h2>
-      <p>自下而上构建，每一层只依赖它下面的层。点击任一层查看其中的子项目。</p>
+      <h2>{{ L('Five architectural layers', '五层架构') }}</h2>
+      <p>{{ L('Built bottom-up: each layer depends only on the ones below it. Click any layer to see what it contains.',
+        '自下而上构建，每一层只依赖它下面的层。点击任一层查看其中的子项目。') }}</p>
     </div>
     <div class="rail__stack">
-      <a v-for="l in layers" :key="l.id" class="lane" :class="`lane--${l.id}`" :href="`/projects/?layer=${l.id}`">
+      <a v-for="l in layers" :key="l.id" class="lane" :class="`lane--${l.id}`" :href="`${base}/projects/?layer=${l.id}`">
         <div class="lane__side">
-          <span class="lane__code">{{ l.en }}</span>
-          <span class="lane__title">{{ l.title }}</span>
+          <span class="lane__code">{{ l.id }}</span>
+          <span class="lane__title">{{ l[isZh ? 'zh' : 'en'] }}</span>
         </div>
-        <p class="lane__desc">{{ l.desc }}</p>
+        <p class="lane__desc">{{ l[isZh ? 'zh_desc' : 'en_desc'] }}</p>
         <div class="lane__count">{{ projects.filter((p) => p.layer === l.id).length }}</div>
       </a>
     </div>
@@ -123,8 +141,9 @@ const pillars = [
   <!-- ---------- pillars ---------- -->
   <div class="sec">
     <div class="sec__head">
-      <h2>设计取向</h2>
-      <p>六条贯穿全部 32 个子项目的工程原则。</p>
+      <h2>{{ L('Design principles', '设计取向') }}</h2>
+      <p>{{ L('Six engineering principles running through all 32 sub-projects.',
+        '六条贯穿全部 32 个子项目的工程原则。') }}</p>
     </div>
     <div class="pillars">
       <div v-for="p in pillars" :key="p.title" class="pillar">
@@ -143,11 +162,11 @@ const pillars = [
   <!-- ---------- featured ---------- -->
   <div class="sec">
     <div class="sec__head">
-      <h2>核心项目</h2>
-      <p>按社区关注度排序的六个入口项目。</p>
+      <h2>{{ L('Flagship projects', '核心项目') }}</h2>
+      <p>{{ L('Six entry points, ranked by community interest.', '按社区关注度排序的六个入口项目。') }}</p>
     </div>
     <div class="feat">
-      <a v-for="p in top" :key="p.slug" class="feat__item" :href="`/projects/${p.slug}`">
+      <a v-for="p in top" :key="p.slug" class="feat__item" :href="`${base}/projects/${p.slug}`">
         <div class="feat__top">
           <span class="feat__name">{{ p.name.replace('Microsphere ', '') }}</span>
           <span class="feat__stars">
@@ -157,15 +176,17 @@ const pillars = [
             {{ p.stars }}
           </span>
         </div>
-        <p class="feat__tag">{{ p.tagline }}</p>
-        <div class="feat__mods">{{ p.modules.length }} 个模块 · {{ p.features.length }} 项特性</div>
+        <p class="feat__tag">{{ L(p.en.tagline, p.zh.tagline) }}</p>
+        <div class="feat__mods">
+          {{ L(`${p.en.modules.length} modules · ${p.en.features.length} features`,
+            `${p.en.modules.length} 个模块 · ${p.en.features.length} 项特性`) }}
+        </div>
       </a>
     </div>
   </div>
 </template>
 
 <style scoped>
-/* ---------------- hero ---------------- */
 .hero {
   position: relative;
   margin-inline: calc(50% - 50vw);
@@ -335,7 +356,6 @@ const pillars = [
   margin-top: 2px;
 }
 
-/* ---------------- layer rail ---------------- */
 .rail {
   margin: 64px 0 0;
 }
@@ -351,6 +371,8 @@ const pillars = [
   font-size: 24px;
   font-weight: 760;
   letter-spacing: -.02em;
+  border: 0;
+  padding: 0;
 }
 
 .rail__head p,
@@ -448,7 +470,6 @@ const pillars = [
   background: color-mix(in srgb, var(--c) 12%, transparent);
 }
 
-/* ---------------- sections ---------------- */
 .sec {
   margin-top: 64px;
 }

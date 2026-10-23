@@ -1,197 +1,247 @@
 # -*- coding: utf-8 -*-
-"""Generate one standalone Markdown page per Microsphere sub-project."""
+"""Generate one standalone Markdown page per sub-project, in English and Chinese.
+
+English is the primary locale and lives at docs/projects/.
+Chinese is the secondary locale and lives at docs/zh/projects/.
+
+Also emits: bilingual sidebar modules and theme/data/projects.json.
+"""
 import os, sys, io, json, re
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from data import PROJECTS, LAYERS
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
-OUT = os.path.join(ROOT, "docs", "projects")
-os.makedirs(OUT, exist_ok=True)
+DOCS = os.path.join(ROOT, "docs")
 
-LAYER_MAP = {l[0]: {"title": l[1], "en": l[2], "desc": l[3]} for l in LAYERS}
-LAYER_ORDER = [l[0] for l in LAYERS]
+LABELS = {
+    "en": dict(
+        overview="Overview",
+        features="Key Features",
+        usage="Usage Example",
+        modules="Modules",
+        getting_started="Getting Started",
+        requirements="Requirements",
+        versions="Version Lines",
+        links="Links",
+        note="Note",
+        bom_note="Then add only the modules you need — versions are managed by the BOM:",
+        repo="GitHub Repository",
+        issues="Report an Issue",
+        deepwiki="DeepWiki Docs",
+        central="Maven Central",
+        index_title="All Projects",
+        index_desc="The complete Microsphere catalogue — layered, searchable, and sortable",
+        layer_heading="How the layers work",
+        matrix="Capability Matrix",
+        matrix_note="Layers follow dependency order: L1 depends on no framework, L2 extends the Spring stack on top of L1, "
+                    "L3 adapts concrete infrastructure, and L4 is a pluggable cross-cutting capability. Any combination is valid.",
+        col_project="Project", col_layer="Layer", col_lang="Lang", col_star="Stars",
+        col_fork="Forks", col_tagline="In one line",
+    ),
+    "zh": dict(
+        overview="它解决什么问题",
+        features="核心特性",
+        usage="用法示例",
+        modules="模块构成",
+        getting_started="引入依赖",
+        requirements="环境要求",
+        versions="版本线",
+        links="相关链接",
+        note="注意",
+        bom_note="然后按需引入模块（版本由 BOM 管理，无需指定）：",
+        repo="GitHub 仓库",
+        issues="问题反馈",
+        deepwiki="DeepWiki 智能文档",
+        central="Maven Central",
+        index_title="子项目总览",
+        index_desc="Microsphere 全部子项目——分层归类，支持搜索与排序",
+        layer_heading="分层说明",
+        matrix="能力矩阵",
+        matrix_note="分层依据是各项目在生态中的依赖位置：L1 不依赖任何框架，L2 构建于 L1 之上扩展 Spring 全家桶，"
+                    "L3 面向具体基础设施做适配，L4 是可插拔的横向能力。实际使用时可按需组合，不存在强制依赖。",
+        col_project="子项目", col_layer="分层", col_lang="语言", col_star="Star",
+        col_fork="Fork", col_tagline="一句话",
+    ),
+}
 
-
-def esc(s):
-    return s.replace('"', '\\"')
+PREFIX = {"en": "", "zh": "/zh"}
 
 
 def safe(s):
-    """Escape angle brackets that would otherwise be parsed as raw HTML by Vue."""
-    return re.sub(r'<(/?[A-Za-z][A-Za-z0-9-]*)>', r'`&lt;\1&gt;`', str(s))
+    """Escape bare HTML-looking tags outside inline code spans."""
+    parts = str(s).split("`")
+    for i in range(0, len(parts), 2):
+        parts[i] = re.sub(r"<(/?[A-Za-z][A-Za-z0-9-]*)>", r"&lt;\1&gt;", parts[i])
+    return "`".join(parts)
 
 
-def maven_block(p):
-    bom = p.get("bom")
-    art = p.get("artifact")
+def yaml_str(s):
+    return '"%s"' % str(s).replace('"', '\\"')
+
+
+def maven_block(p, lang):
+    L = LABELS[lang]
+    bom, art = p.get("bom"), p.get("artifact")
     if not art:
         return ""
-    lines = ["```xml", "<dependencyManagement>", "    <dependencies>", "        <dependency>",
-             "            <groupId>io.github.microsphere-projects</groupId>",
-             "            <artifactId>%s</artifactId>" % (bom or art),
-             "            <version>${%s.version}</version>" % p["slug"],
-             "            <type>pom</type>", "            <scope>import</scope>",
-             "        </dependency>", "    </dependencies>", "</dependencyManagement>", "```"]
+    slug = p["slug"]
+    out = [
+        "```xml", "<dependencyManagement>", "    <dependencies>", "        <dependency>",
+        "            <groupId>io.github.microsphere-projects</groupId>",
+        "            <artifactId>%s</artifactId>" % (bom or art),
+        "            <version>${%s.version}</version>" % slug,
+        "            <type>pom</type>", "            <scope>import</scope>",
+        "        </dependency>", "    </dependencies>", "</dependencyManagement>", "```",
+    ]
     if bom:
-        lines += ["", "然后按需引入模块（版本由 BOM 管理，无需指定）：", "", "```xml", "<dependencies>",
-                  "    <dependency>",
-                  "        <groupId>io.github.microsphere-projects</groupId>",
-                  "        <artifactId>%s</artifactId>" % art,
-                  "    </dependency>", "</dependencies>", "```"]
-    return "\n".join(lines)
+        out += ["", L["bom_note"], "", "```xml", "<dependencies>", "    <dependency>",
+                "        <groupId>io.github.microsphere-projects</groupId>",
+                "        <artifactId>%s</artifactId>" % art,
+                "    </dependency>", "</dependencies>", "```"]
+    return "\n".join(out)
 
 
-def build_page(p):
+def build_page(p, lang):
+    L = LABELS[lang]
+    d = p[lang]
+    pre = PREFIX[lang]
     o = io.StringIO()
     w = o.write
 
-    # --- frontmatter (YAML, machine readable) ---
     w("---\n")
     w("title: %s\n" % p["name"])
-    w('description: "%s"\n' % esc(p["summary"]))
+    w("description: %s\n" % yaml_str(safe(d["summary"])))
     w("outline: deep\n")
     w("project:\n")
     w("  slug: %s\n" % p["slug"])
-    w("  name: %s\n" % p["name"])
     w("  layer: %s\n" % p["layer"])
-    w("  tagline: %s\n" % p["tagline"])
-    w("  lang: %s\n" % p["lang"])
-    w("  stars: %d\n" % p["stars"])
-    w("  forks: %d\n" % p["forks"])
-    if p.get("artifact"):
-        w("  artifactId: %s\n" % p["artifact"])
-    if p.get("bom"):
-        w("  bom: %s\n" % p["bom"])
-    if p.get("version"):
-        w("  version: %s\n" % p["version"])
     w("---\n\n")
 
-    w("<ProjectHeader />\n\n")
+    w("<ProjectHeader></ProjectHeader>\n\n")
 
-    # --- overview ---
-    w("## 它解决什么问题\n\n")
-    w("%s\n\n" % safe(p["summary"]))
+    w("## %s\n\n" % L["overview"])
+    w("%s\n\n" % safe(d["summary"]))
 
-    # --- features ---
-    w("## 核心特性\n\n")
-    for name, desc in p["features"]:
+    w("## %s\n\n" % L["features"])
+    for name, desc in d["features"]:
         w("- **%s** — %s\n" % (safe(name), safe(desc)))
     w("\n")
 
-    # --- code sample ---
     if p.get("code"):
-        w("## 用法示例\n\n")
+        w("## %s\n\n" % L["usage"])
         w("```%s\n%s\n```\n\n" % (p.get("lang_code", "java"), p["code"]))
 
-    # --- modules ---
-    w("## 模块构成\n\n")
-    w("| 模块 | 说明 |\n|------|------|\n")
-    for m, d in p["modules"]:
-        w("| `%s` | %s |\n" % (safe(m), safe(d)))
+    w("## %s\n\n" % L["modules"])
+    w("| %s | |\n|------|------|\n" % ("Module" if lang == "en" else "模块"))
+    for m, desc in d["modules"]:
+        w("| `%s` | %s |\n" % (safe(m), safe(desc)))
     w("\n")
 
-    # --- dependency ---
     if p.get("artifact"):
-        w("## 引入依赖\n\n")
-        w(maven_block(p))
+        w("## %s\n\n" % L["getting_started"])
+        w(maven_block(p, lang))
         w("\n\n")
 
-    # --- compatibility ---
-    w("## 环境要求\n\n")
-    w("| 项目 | 版本 |\n|------|------|\n")
-    for k, v in p["compat"]:
+    w("## %s\n\n" % L["requirements"])
+    w("| | |\n|------|------|\n")
+    for k, v in d["compat"]:
         w("| %s | %s |\n" % (safe(k), safe(v)))
     w("\n")
 
     if p.get("versions"):
-        w("### 版本线\n\n")
-        w("| 分支 | 兼容范围 | 最新版本 |\n|------|----------|----------|\n")
+        w("### %s\n\n" % L["versions"])
+        w("| %s | | |\n|------|----------|----------|\n"
+          % ("Branch" if lang == "en" else "分支"))
         for br, scope, ver in p["versions"]:
             w("| `%s` | %s | `%s` |\n" % (safe(br), safe(scope), safe(ver)))
         w("\n")
 
-    if p.get("note"):
-        w("::: tip 注意\n%s\n:::\n\n" % safe(p["note"]))
+    if d.get("note"):
+        w("::: tip %s\n%s\n:::\n\n" % (L["note"], safe(d["note"])))
 
-    # --- links ---
-    w("## 相关链接\n\n")
-    w("- [GitHub 仓库](https://github.com/microsphere-projects/%s)\n" % p["slug"])
-    w("- [问题反馈](https://github.com/microsphere-projects/%s/issues)\n" % p["slug"])
-    w("- [DeepWiki 智能文档](https://deepwiki.com/microsphere-projects/%s)\n" % p["slug"])
+    w("## %s\n\n" % L["links"])
+    w("- [%s](https://github.com/microsphere-projects/%s)\n" % (L["repo"], p["slug"]))
+    w("- [%s](https://github.com/microsphere-projects/%s/issues)\n" % (L["issues"], p["slug"]))
+    w("- [%s](https://deepwiki.com/microsphere-projects/%s)\n" % (L["deepwiki"], p["slug"]))
     if p.get("artifact"):
-        w("- [Maven Central · %s](https://central.sonatype.com/artifact/io.github.microsphere-projects/%s)\n"
-          % (p["artifact"], p["artifact"]))
+        w("- [%s · %s](https://central.sonatype.com/artifact/io.github.microsphere-projects/%s)\n"
+          % (L["central"], p["artifact"], p["artifact"]))
     w("\n")
 
-    # --- prev / next nav ---
-    w("<ProjectNav />\n")
+    w("<ProjectNav></ProjectNav>\n")
     return o.getvalue()
 
 
-# ---------------- generate project pages ----------------
+LAYER_ORDER = [l["id"] for l in LAYERS]
 order = sorted(PROJECTS, key=lambda p: (LAYER_ORDER.index(p["layer"]), -p["stars"], p["slug"]))
-for i, p in enumerate(order):
-    prev_p = order[i - 1] if i > 0 else None
-    next_p = order[i + 1] if i < len(order) - 1 else None
-    body = build_page(p)
-    path = os.path.join(OUT, p["slug"] + ".md")
-    open(path, "w", encoding="utf-8").write(body)
-    print("wrote", p["slug"] + ".md")
 
-# ---------------- generate projects/index.md ----------------
-o = io.StringIO()
-w = o.write
-w("""---
-title: 子项目总览
-description: Microsphere Projects 全部子项目的分层总览与能力矩阵
-outline: false
----
+# ---------------- project pages ----------------
+for lang in ("en", "zh"):
+    out_dir = os.path.join(DOCS, "projects") if lang == "en" else os.path.join(DOCS, "zh", "projects")
+    os.makedirs(out_dir, exist_ok=True)
+    for p in order:
+        open(os.path.join(out_dir, p["slug"] + ".md"), "w", encoding="utf-8").write(build_page(p, lang))
+    print("wrote %d pages -> %s" % (len(order), out_dir))
 
-<ProjectsIndex />
+# ---------------- projects index ----------------
+for lang in ("en", "zh"):
+    L = LABELS[lang]
+    pre = PREFIX[lang]
+    o = io.StringIO()
+    w = o.write
+    w("---\n")
+    w("title: %s\n" % L["index_title"])
+    w("description: %s\n" % yaml_str(L["index_desc"]))
+    w("outline: false\n")
+    w("---\n\n")
+    w("<ProjectsIndex></ProjectsIndex>\n\n")
+    w("## %s\n\n" % L["layer_heading"])
+    for l in LAYERS:
+        w("### %s\n\n%s\n\n" % (l[lang], l[lang + "_desc"]))
+    w("::: tip\n%s\n:::\n\n" % L["matrix_note"])
+    w("## %s\n\n" % L["matrix"])
+    w("| %s | %s | %s | %s | %s | %s |\n|--------|------|------|------|------|--------|\n"
+      % (L["col_project"], L["col_layer"], L["col_lang"], L["col_star"], L["col_fork"], L["col_tagline"]))
+    for p in order:
+        lay = next(x for x in LAYERS if x["id"] == p["layer"])
+        w("| [%s](./%s) | %s | %s | %d | %d | %s |\n"
+          % (p["name"], p["slug"], lay[lang], p["lang"], p["stars"], p["forks"], safe(p[lang]["tagline"])))
+    w("\n")
+    path = os.path.join(DOCS, "projects", "index.md") if lang == "en" else os.path.join(DOCS, "zh", "projects", "index.md")
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    open(path, "w", encoding="utf-8").write(o.getvalue())
+print("wrote projects index (en, zh)")
 
-## 分层说明
+# ---------------- sidebars ----------------
+for lang, fname in (("en", "sidebar.mjs"), ("zh", "sidebar.zh.mjs")):
+    sb = ["// AUTO-GENERATED by tools/gen.py — do not edit by hand.",
+          "export const projectsSidebar = ["]
+    for l in LAYERS:
+        items = [p for p in order if p["layer"] == l["id"]]
+        sb.append("  {")
+        sb.append('    text: "%s",' % l[lang])
+        sb.append("    items: [")
+        for p in items:
+            sb.append('      { text: "%s", link: "%s/projects/%s" },'
+                      % (p["name"].replace("Microsphere ", ""), PREFIX[lang], p["slug"]))
+        sb.append("    ],")
+        sb.append("  },")
+    sb += ["]", ""]
+    open(os.path.join(DOCS, ".vitepress", fname), "w", encoding="utf-8").write("\n".join(sb))
+print("wrote sidebars (en, zh)")
 
-""")
-for lid, title, en, desc in LAYERS:
-    w("### %s · %s\n\n%s\n\n" % (title, en, desc))
-
-w("""> 分层依据是各项目在生态中的依赖位置：L1 不依赖任何框架，L2 构建于 L1 之上扩展 Spring 全家桶，
-> L3 面向具体基础设施做适配，L4 是可插拔的横向能力。实际使用时可按需组合，不存在强制依赖。
-
-## 能力矩阵
-
-| 子项目 | 分层 | 语言 | Star | Fork | 一句话 |
-|--------|------|------|------|------|--------|
-""")
-for p in order:
-    w("| [%s](./%s) | %s | %s | %d | %d | %s |\n"
-      % (p["name"], p["slug"], LAYER_MAP[p["layer"]]["en"], p["lang"], p["stars"], p["forks"], safe(p["tagline"])))
-w("\n")
-open(os.path.join(OUT, "index.md"), "w", encoding="utf-8").write(o.getvalue())
-print("wrote projects/index.md")
-
-# ---------------- emit sidebar module ----------------
-sb = ['// AUTO-GENERATED by .cache/gen.py — do not edit by hand.',
-      'export const projectsSidebar = [']
-for lid, title, en, desc in LAYERS:
-    items = [p for p in order if p["layer"] == lid]
-    sb.append('  {')
-    sb.append('    text: "%s",' % title)
-    sb.append('    items: [')
-    for p in items:
-        sb.append('      { text: "%s", link: "/projects/%s" },' % (p["name"].replace("Microsphere ", ""), p["slug"]))
-    sb.append('    ],')
-    sb.append('  },')
-sb.append(']')
-sb.append('')
-open(os.path.join(ROOT, "docs", ".vitepress", "sidebar.mjs"), "w", encoding="utf-8").write("\n".join(sb))
-print("wrote sidebar.mjs")
-
-# ---------------- emit JS data for the overview grid ----------------
-js = {"layers": [{"id": l[0], "title": l[1], "en": l[2], "desc": l[3]} for l in LAYERS],
-      "projects": [{k: v for k, v in p.items() if k != "code"} for p in order]}
-data_dir = os.path.join(ROOT, "docs", ".vitepress", "theme", "data")
+# ---------------- theme data ----------------
+js = {
+    "layers": [dict(id=l["id"], en=l["en"], zh=l["zh"], en_desc=l["en_desc"], zh_desc=l["zh_desc"]) for l in LAYERS],
+    "projects": [
+        dict(slug=p["slug"], name=p["name"], layer=p["layer"], stars=p["stars"], forks=p["forks"],
+             lang=p["lang"], artifact=p.get("artifact"), bom=p.get("bom"), version=p.get("version"),
+             en=p["en"], zh=p["zh"])
+        for p in order
+    ],
+}
+data_dir = os.path.join(DOCS, ".vitepress", "theme", "data")
 os.makedirs(data_dir, exist_ok=True)
 open(os.path.join(data_dir, "projects.json"), "w", encoding="utf-8").write(
     json.dumps(js, ensure_ascii=False, indent=2))

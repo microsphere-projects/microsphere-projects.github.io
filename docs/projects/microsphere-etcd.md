@@ -1,35 +1,29 @@
 ---
 title: Microsphere etcd
-description: "面向 etcd 分布式键值存储的 Microsphere 集成项目，可作为配置中心与服务发现的后端选项。"
+description: "A Microsphere integration project for the etcd distributed key-value store, usable as a backend for configuration management and service discovery."
 outline: deep
 project:
   slug: microsphere-etcd
-  name: Microsphere etcd
   layer: integration
-  tagline: etcd 集成
-  lang: Java
-  stars: 0
-  forks: 7
-  artifactId: microsphere-etcd
 ---
 
-<ProjectHeader />
+<ProjectHeader></ProjectHeader>
 
-## 它解决什么问题
+## Overview
 
-面向 etcd 分布式键值存储的 Microsphere 集成项目，可作为配置中心与服务发现的后端选项。
+A Microsphere integration project for the etcd distributed key-value store, usable as a backend for configuration management and service discovery.
 
-## 核心特性
+## Key Features
 
-- **etcd 集成** — 提供与 etcd 的集成能力。
+- **etcd integration** — Integration with etcd.
 
-## 模块构成
+## Modules
 
-| 模块 | 说明 |
+| Module | |
 |------|------|
-| `microsphere-etcd` | etcd 集成聚合模块 |
+| `microsphere-etcd` | Aggregator module for the etcd integration |
 
-## 引入依赖
+## Getting Started
 
 ```xml
 <dependencyManagement>
@@ -45,17 +39,17 @@ project:
 </dependencyManagement>
 ```
 
-## 环境要求
+## Requirements
 
-| 项目 | 版本 |
+| | |
 |------|------|
 | Java | 8+ |
 
-## 相关链接
+## Links
 
-- [GitHub 仓库](https://github.com/microsphere-projects/microsphere-etcd)
-- [问题反馈](https://github.com/microsphere-projects/microsphere-etcd/issues)
-- [DeepWiki 智能文档](https://deepwiki.com/microsphere-projects/microsphere-etcd)
+- [GitHub Repository](https://github.com/microsphere-projects/microsphere-etcd)
+- [Report an Issue](https://github.com/microsphere-projects/microsphere-etcd/issues)
+- [DeepWiki Docs](https://deepwiki.com/microsphere-projects/microsphere-etcd)
 - [Maven Central · microsphere-etcd](https://central.sonatype.com/artifact/io.github.microsphere-projects/microsphere-etcd)
 
-<ProjectNav />
+<ProjectNav></ProjectNav>

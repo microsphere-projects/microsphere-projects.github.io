@@ -1,6 +1,9 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import data from '../data/projects.json'
+import { useLocale } from '../composables/useLocale'
+
+const { L, isZh, base } = useLocale()
 
 const q = ref('')
 const layer = ref('all')
@@ -21,26 +24,29 @@ const filtered = computed(() => {
   let list = data.projects.filter((p) => {
     if (layer.value !== 'all' && p.layer !== layer.value) return false
     if (!kw) return true
-    const hay = [p.name, p.slug, p.tagline, p.summary, p.artifactId || '', p.bom || '',
-      ...p.features.map((f) => f[0] + f[1])].join(' ').toLowerCase()
+    const d = isZh.value ? p.zh : p.en
+    const hay = [p.name, p.slug, d.tagline, d.summary, p.artifactId || '', p.bom || '',
+      ...d.features.map((f) => f[0] + f[1])].join(' ').toLowerCase()
     return hay.includes(kw)
   })
-  if (sort.value === 'stars') {
-    list = [...list].sort((a, b) => b.stars - a.stars)
-  } else if (sort.value === 'name') {
-    list = [...list].sort((a, b) => a.name.localeCompare(b.name))
-  }
+  if (sort.value === 'stars') list = [...list].sort((a, b) => b.stars - a.stars)
+  else if (sort.value === 'name') list = [...list].sort((a, b) => a.name.localeCompare(b.name))
   return list
 })
 
 const grouped = computed(() => {
-  if (sort.value !== 'layer') return [{ id: '_flat', title: '', en: '', items: filtered.value }]
+  if (sort.value !== 'layer') return [{ id: '_flat', title: '', desc: '', items: filtered.value }]
   return layers
-    .map((l) => ({ ...l, items: filtered.value.filter((p) => p.layer === l.id) }))
+    .map((l) => ({
+      id: l.id, title: l[isZh.value ? 'zh' : 'en'], desc: l[isZh.value ? 'zh_desc' : 'en_desc'],
+      items: filtered.value.filter((p) => p.layer === l.id),
+    }))
     .filter((g) => g.items.length)
 })
 
 const total = computed(() => filtered.value.length)
+const detail = (p) => `${base.value}/projects/${p.slug}`
+const feats = (p) => (isZh.value ? p.zh.features : p.en.features)
 </script>
 
 <template>
@@ -51,31 +57,34 @@ const total = computed(() => filtered.value.length)
           <circle cx="11" cy="11" r="7" />
           <path d="M20 20l-3.5-3.5" stroke-linecap="round" />
         </svg>
-        <input v-model="q" type="search" placeholder="按名称、能力或模块搜索，例如：feign、redis、TTL" />
+        <input v-model="q" type="search"
+          :placeholder="L('Search by name, capability or module — e.g. feign, redis, TTL', '按名称、能力或模块搜索，例如：feign、redis、TTL')" />
       </div>
       <div class="px__sort">
-        <button :class="{ on: sort === 'layer' }" @click="sort = 'layer'">按分层</button>
-        <button :class="{ on: sort === 'stars' }" @click="sort = 'stars'">按热度</button>
-        <button :class="{ on: sort === 'name' }" @click="sort = 'name'">按名称</button>
+        <button :class="{ on: sort === 'layer' }" @click="sort = 'layer'">{{ L('By layer', '按分层') }}</button>
+        <button :class="{ on: sort === 'stars' }" @click="sort = 'stars'">{{ L('Popular', '按热度') }}</button>
+        <button :class="{ on: sort === 'name' }" @click="sort = 'name'">{{ L('By name', '按名称') }}</button>
       </div>
     </div>
 
     <div class="px__filters">
-      <button class="px__chip" :class="{ on: layer === 'all' }" @click="layer = 'all'">全部</button>
+      <button class="px__chip" :class="{ on: layer === 'all' }" @click="layer = 'all'">{{ L('All', '全部') }}</button>
       <button v-for="l in layers" :key="l.id" class="px__chip" :class="[`px__chip--${l.id}`, { on: layer === l.id }]"
-        @click="layer = l.id">{{ l.title }}</button>
-      <span class="px__count">{{ total }} 个项目</span>
+        @click="layer = l.id">{{ l[isZh ? 'zh' : 'en'] }}</button>
+      <span class="px__count">{{ L(`${total} projects`, `${total} 个项目`) }}</span>
     </div>
 
-    <div v-if="!total" class="px__empty">没有匹配的项目，试试其它关键词。</div>
+    <div v-if="!total" class="px__empty">
+      {{ L('No matching projects. Try another keyword.', '没有匹配的项目，试试其它关键词。') }}
+    </div>
 
     <section v-for="g in grouped" :key="g.id" class="px__group">
       <div v-if="g.title" class="px__grouphead">
-        <h2>{{ g.title }} · {{ g.en }}</h2>
+        <h2>{{ g.title }}</h2>
         <p>{{ g.desc }}</p>
       </div>
       <div class="px__grid">
-        <a v-for="p in g.items" :key="p.slug" class="card" :href="`/projects/${p.slug}`">
+        <a v-for="p in g.items" :key="p.slug" class="card" :href="detail(p)">
           <div class="card__head">
             <span class="card__badge" :class="`card__badge--${p.layer}`">{{ p.name.replace('Microsphere ', '') }}</span>
             <span v-if="p.stars" class="card__stars">
@@ -85,15 +94,17 @@ const total = computed(() => filtered.value.length)
               {{ p.stars }}
             </span>
           </div>
-          <p class="card__tagline">{{ p.tagline }}</p>
+          <p class="card__tagline">{{ L(p.en.tagline, p.zh.tagline) }}</p>
           <ul class="card__feats">
-            <li v-for="f in p.features.slice(0, 3)" :key="f[0]">{{ f[0] }}</li>
+            <li v-for="f in feats(p).slice(0, 3)" :key="f[0]">{{ f[0] }}</li>
           </ul>
           <div class="card__foot">
             <span class="card__lang">{{ p.lang }}</span>
-            <span v-if="p.features.length > 3" class="card__more">+{{ p.features.length - 3 }} 项特性</span>
+            <span v-if="feats(p).length > 3" class="card__more">
+              {{ L(`+${feats(p).length - 3} more`, `+${feats(p).length - 3} 项特性`) }}
+            </span>
             <span class="card__go">
-              详情
+              {{ L('Details', '详情') }}
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6">
                 <path d="M5 12h13M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
@@ -172,6 +183,7 @@ const total = computed(() => filtered.value.length)
   border-radius: 8px;
   cursor: pointer;
   transition: all .18s;
+  white-space: nowrap;
 }
 
 .px__sort button.on {
@@ -200,6 +212,7 @@ const total = computed(() => filtered.value.length)
   border-radius: 999px;
   cursor: pointer;
   transition: all .18s;
+  white-space: nowrap;
 }
 
 .px__chip:hover {
@@ -289,6 +302,8 @@ const total = computed(() => filtered.value.length)
   font-size: 17px;
   font-weight: 720;
   letter-spacing: -.01em;
+  border: 0;
+  padding: 0;
 }
 
 .px__grouphead p {

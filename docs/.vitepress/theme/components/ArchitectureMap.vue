@@ -1,6 +1,9 @@
 <script setup>
 import { ref, computed } from 'vue'
 import data from '../data/projects.json'
+import { useLocale, UI } from '../composables/useLocale'
+
+const { L, isZh, base } = useLocale()
 
 const layers = data.layers
 const projects = data.projects
@@ -10,28 +13,31 @@ const hovered = ref(null)
 
 const focus = computed(() => hovered.value || active.value)
 
-// Visual layout: each layer is a band, projects are chips inside.
 const bands = computed(() =>
   layers.map((l) => ({
     ...l,
+    label: l[isZh.value ? 'zh' : 'en'],
     items: projects.filter((p) => p.layer === l.id),
   }))
 )
 
 function isDim(p) {
-  if (!focus.value) return false
-  if (p.slug === focus.value) return false
+  if (!focus.value || p.slug === focus.value) return false
   const p0 = projects.find((x) => x.slug === focus.value)
-  if (!p0) return false
-  // keep same-layer siblings at medium opacity, dim everything else
-  return p0.layer !== p.layer
+  return p0 ? p0.layer !== p.layer : false
 }
 
-function isHot(p) {
-  return p.slug === focus.value
-}
+const isHot = (p) => p.slug === focus.value
 
-const focusedProject = computed(() => projects.find((p) => p.slug === focus.value) || null)
+const focused = computed(() => projects.find((p) => p.slug === focus.value) || null)
+const focusedLayer = computed(() =>
+  focused.value ? layers.find((l) => l.id === focused.value.layer) : null
+)
+const focusedFeatures = computed(() => {
+  if (!focused.value) return []
+  return (isZh.value ? focused.value.zh : focused.value.en).features.slice(0, 5)
+})
+const detailHref = computed(() => (focused.value ? `${base.value}/projects/${focused.value.slug}` : '#'))
 </script>
 
 <template>
@@ -39,30 +45,25 @@ const focusedProject = computed(() => projects.find((p) => p.slug === focus.valu
     <div class="arch__legend">
       <span class="arch__hint">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="11" cy="11" r="7" /><path d="M20 20l-3.5-3.5" stroke-linecap="round" />
+          <circle cx="11" cy="11" r="7" />
+          <path d="M20 20l-3.5-3.5" stroke-linecap="round" />
         </svg>
-        悬停或点击任一模块，查看它在生态中的位置
+        {{ L(UI.hint.en, UI.hint.zh) }}
       </span>
-      <button v-if="active" class="arch__clear" @click="active = null">清除选中</button>
+      <button v-if="active" class="arch__clear" @click="active = null">{{ L(UI.clear.en, UI.clear.zh) }}</button>
     </div>
 
     <div class="arch__stack">
       <div v-for="(band, bi) in bands" :key="band.id" class="band" :class="`band--${band.id}`">
         <div class="band__rail">
-          <span class="band__code">{{ band.en }}</span>
-          <span class="band__title">{{ band.title }}</span>
+          <span class="band__code">{{ 'L' + bi }}</span>
+          <span class="band__title">{{ band.label }}</span>
         </div>
         <div class="band__body">
-          <a
-            v-for="p in band.items"
-            :key="p.slug"
-            class="chip"
+          <a v-for="p in band.items" :key="p.slug" class="chip"
             :class="{ 'chip--hot': isHot(p), 'chip--dim': isDim(p), 'chip--star': p.stars >= 10 }"
-            :href="`/projects/${p.slug}`"
-            @mouseenter="hovered = p.slug"
-            @mouseleave="hovered = null"
-            @click="active = active === p.slug ? null : p.slug"
-          >
+            :href="`${base}/projects/${p.slug}`" @mouseenter="hovered = p.slug" @mouseleave="hovered = null"
+            @click="active = active === p.slug ? null : p.slug">
             <span class="chip__dot" />
             <span class="chip__name">{{ p.name.replace('Microsphere ', '') }}</span>
             <span v-if="p.stars >= 10" class="chip__star">
@@ -84,20 +85,19 @@ const focusedProject = computed(() => projects.find((p) => p.slug === focus.valu
     </div>
 
     <transition name="fade">
-      <div v-if="focusedProject" class="arch__detail">
+      <div v-if="focused" class="arch__detail">
         <div class="arch__detail-head">
-          <span class="arch__pill">{{ focusedProject.name }}</span>
-          <span class="arch__layer">{{
-            layers.find((l) => l.id === focusedProject.layer)?.title }}</span>
+          <span class="arch__pill">{{ focused.name }}</span>
+          <span class="arch__layer">{{ focusedLayer ? focusedLayer[isZh ? 'zh' : 'en'] : '' }}</span>
         </div>
-        <p class="arch__tagline">{{ focusedProject.tagline }}</p>
+        <p class="arch__tagline">{{ L(focused.en.tagline, focused.zh.tagline) }}</p>
         <ul class="arch__feats">
-          <li v-for="f in focusedProject.features.slice(0, 5)" :key="f[0]">
+          <li v-for="f in focusedFeatures" :key="f[0]">
             <strong>{{ f[0] }}</strong> — {{ f[1] }}
           </li>
         </ul>
-        <a class="arch__cta" :href="`/projects/${focusedProject.slug}`">
-          查看完整介绍
+        <a class="arch__cta" :href="detailHref">
+          {{ L(UI.viewProject.en, UI.viewProject.zh) }}
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
             <path d="M5 12h13M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
@@ -150,14 +150,12 @@ const focusedProject = computed(() => projects.find((p) => p.slug === focus.valu
   align-items: center;
 }
 
-/* ---------- band ---------- */
 .band {
   position: relative;
   width: 100%;
   border: 1px solid var(--vp-c-divider);
   border-radius: 16px;
-  background:
-    linear-gradient(135deg, var(--ms-band-from), var(--ms-band-to));
+  background: linear-gradient(135deg, var(--ms-band-from), var(--ms-band-to));
   padding: 16px 18px;
   transition: border-color .25s, box-shadow .25s;
 }
@@ -233,7 +231,6 @@ const focusedProject = computed(() => projects.find((p) => p.slug === focus.valu
   gap: 8px;
 }
 
-/* ---------- chip ---------- */
 .chip {
   --dot: var(--ms-chip);
   position: relative;
@@ -291,7 +288,6 @@ const focusedProject = computed(() => projects.find((p) => p.slug === focus.valu
   padding-left: 2px;
 }
 
-/* ---------- flow arrow ---------- */
 .band__flow {
   color: var(--vp-c-text-3);
   display: flex;
@@ -300,7 +296,6 @@ const focusedProject = computed(() => projects.find((p) => p.slug === focus.valu
   opacity: .55;
 }
 
-/* ---------- detail ---------- */
 .arch__detail {
   margin-top: 20px;
   border: 1px solid var(--vp-c-divider);

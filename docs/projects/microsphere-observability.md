@@ -1,48 +1,40 @@
 ---
 title: Microsphere Observability
-description: "全面提升 Java 应用（以 Spring Boot 生态为主）的监控、指标采集与日志能力。除 Micrometer、Prometheus、Log4j2、Alibaba Sentinel 的专项集成外，还提供 CGroups、网络统计等系统级自定义指标。"
+description: "Improves the monitoring, metrics collection and logging capabilities of Java applications, with a primary focus on the Spring Boot ecosystem. Beyond dedicated integrations for Micrometer, Prometheus, Log4j2 and Alibaba Sentinel, it ships custom metrics for system-level resources such as CGroups and network statistics."
 outline: deep
 project:
   slug: microsphere-observability
-  name: Microsphere Observability
   layer: crosscutting
-  tagline: 监控、指标与日志的一体化增强套件
-  lang: Java
-  stars: 4
-  forks: 8
-  artifactId: microsphere-observability-metrics-micrometer
-  bom: microsphere-observability-dependencies
-  version: 0.2.3
 ---
 
-<ProjectHeader />
+<ProjectHeader></ProjectHeader>
 
-## 它解决什么问题
+## Overview
 
-全面提升 Java 应用（以 Spring Boot 生态为主）的监控、指标采集与日志能力。除 Micrometer、Prometheus、Log4j2、Alibaba Sentinel 的专项集成外，还提供 CGroups、网络统计等系统级自定义指标。
+Improves the monitoring, metrics collection and logging capabilities of Java applications, with a primary focus on the Spring Boot ecosystem. Beyond dedicated integrations for Micrometer, Prometheus, Log4j2 and Alibaba Sentinel, it ships custom metrics for system-level resources such as CGroups and network statistics.
 
-## 核心特性
+## Key Features
 
-- **Micrometer 集成** — 自定义 MeterBinder 实现，覆盖 Sentinel、JDBC（P6Spy）与系统指标。
-- **Prometheus 桥接** — 通过自定义 Collector 把 Sentinel 及其它指标转换为 Prometheus 格式。
-- **日志抽象** — logging 模块提供核心日志抽象与动态 layout，含支持 lambda 的 LoggerUtils。
-- **Sentinel 指标** — 专门的 Sentinel 指标逻辑与常量定义。
-- **系统级指标** — 采集 CGroups、网络统计等系统资源指标。
-- **BOM 统一入口** — dependencies 模块集中管理 logging、micrometer、prometheus 等所有内部模块版本。
-- **OpenTelemetry 对齐** — 父 POM 导入 OpenTelemetry Instrumentation BOM。
+- **Micrometer integration** — Custom MeterBinder implementations covering Sentinel, JDBC (P6Spy) and system metrics.
+- **Prometheus bridge** — Custom Collectors convert Sentinel and other metrics into Prometheus format.
+- **Logging abstraction** — The logging module provides core abstractions and dynamic layouts, including a lambda-friendly LoggerUtils.
+- **Sentinel metrics** — Dedicated Sentinel metric logic and constants.
+- **System-level metrics** — Collects CGroups, network statistics and other system resource metrics.
+- **Single BOM entry point** — The dependencies module manages logging, micrometer, prometheus and all internal module versions.
+- **OpenTelemetry alignment** — The parent POM imports the OpenTelemetry Instrumentation BOM.
 
-## 模块构成
+## Modules
 
-| 模块 | 说明 |
+| Module | |
 |------|------|
-| `microsphere-observability-logging` | 核心日志抽象与动态 layout，含 lambda 版 LoggerUtils |
-| `microsphere-observability-metrics-commons` | 基础指标类型与定义 |
-| `microsphere-observability-metrics-alibaba-sentinel` | Sentinel 专项指标逻辑与常量 |
-| `microsphere-observability-metrics-micrometer` | 自定义 MeterBinder：Sentinel、JDBC(P6Spy)、系统指标 |
-| `microsphere-observability-metrics-prometheus` | Prometheus Collector 桥接 |
+| `microsphere-observability-logging` | Core logging abstraction and dynamic layouts, including a lambda-based LoggerUtils |
+| `microsphere-observability-metrics-commons` | Foundational metric types and definitions |
+| `microsphere-observability-metrics-alibaba-sentinel` | Sentinel-specific metric logic and constants |
+| `microsphere-observability-metrics-micrometer` | Custom MeterBinders: Sentinel, JDBC (P6Spy), system metrics |
+| `microsphere-observability-metrics-prometheus` | Prometheus Collector bridge |
 | `microsphere-observability-dependencies` | BOM |
 
-## 引入依赖
+## Getting Started
 
 ```xml
 <dependencyManagement>
@@ -58,7 +50,7 @@ project:
 </dependencyManagement>
 ```
 
-然后按需引入模块（版本由 BOM 管理，无需指定）：
+Then add only the modules you need — versions are managed by the BOM:
 
 ```xml
 <dependencies>
@@ -69,24 +61,24 @@ project:
 </dependencies>
 ```
 
-## 环境要求
+## Requirements
 
-| 项目 | 版本 |
+| | |
 |------|------|
-| Spring Cloud | 2022.0.x – 2025.0.x（main）/ Hoxton – 2021.0.x（1.x） |
+| Spring Cloud | 2022.0.x – 2025.0.x (main) / Hoxton – 2021.0.x (1.x) |
 
-### 版本线
+### Version Lines
 
-| 分支 | 兼容范围 | 最新版本 |
+| Branch | | |
 |------|----------|----------|
 | `main` | Spring Cloud 2022.0.x – 2025.0.x | `0.2.3` |
 | `1.x` | Spring Cloud Hoxton – 2021.0.x | `0.1.3` |
 
-## 相关链接
+## Links
 
-- [GitHub 仓库](https://github.com/microsphere-projects/microsphere-observability)
-- [问题反馈](https://github.com/microsphere-projects/microsphere-observability/issues)
-- [DeepWiki 智能文档](https://deepwiki.com/microsphere-projects/microsphere-observability)
+- [GitHub Repository](https://github.com/microsphere-projects/microsphere-observability)
+- [Report an Issue](https://github.com/microsphere-projects/microsphere-observability/issues)
+- [DeepWiki Docs](https://deepwiki.com/microsphere-projects/microsphere-observability)
 - [Maven Central · microsphere-observability-metrics-micrometer](https://central.sonatype.com/artifact/io.github.microsphere-projects/microsphere-observability-metrics-micrometer)
 
-<ProjectNav />
+<ProjectNav></ProjectNav>

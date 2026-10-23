@@ -1,47 +1,40 @@
 ---
 title: Microsphere Logging
-description: "在不改动应用代码、不重启服务的前提下，统一管理 JVM 中的日志配置。它通过 SPI 自动装载优先级最高的 Logging 实现，同时支持 JUL、Log4j、Log4j2、Logback 多后端共存。"
+description: "Manage logging configuration across a JVM without touching application code or restarting services. It auto-loads the highest-priority Logging implementation via SPI and supports JUL, Log4j, Log4j2 and Logback coexisting in the same process."
 outline: deep
 project:
   slug: microsphere-logging
-  name: Microsphere Logging
   layer: runtime
-  tagline: 跨日志框架的统一运行时管理抽象层
-  lang: Java
-  stars: 2
-  forks: 1
-  artifactId: microsphere-logging-commons
-  bom: microsphere-logging-dependencies
 ---
 
-<ProjectHeader />
+<ProjectHeader></ProjectHeader>
 
-## 它解决什么问题
+## Overview
 
-在不改动应用代码、不重启服务的前提下，统一管理 JVM 中的日志配置。它通过 SPI 自动装载优先级最高的 Logging 实现，同时支持 JUL、Log4j、Log4j2、Logback 多后端共存。
+Manage logging configuration across a JVM without touching application code or restarting services. It auto-loads the highest-priority Logging implementation via SPI and supports JUL, Log4j, Log4j2 and Logback coexisting in the same process.
 
-## 核心特性
+## Key Features
 
-- **运行时级别调整** — 生产环境动态调整日志级别，无需重启服务。
-- **框架无关 API** — 管理代码只写一次，跨全部受支持后端生效。
-- **JMX 集成** — 通过 JMX 暴露并操控日志配置，方便运维介入。
-- **测试支持** — 提供 JUnit 4 与 JUnit Jupiter 5 扩展，可在多级别下验证日志行为。
-- **SPI 可扩展** — 通过 Java ServiceLoader 自动加载最高优先级的 Logging 实现。
-- **多后端共存** — 同一 JVM 内可并行使用多个日志后端，按优先级解析。
+- **Runtime level management** — Adjust log levels in production without restarting the service.
+- **Framework-agnostic API** — Write management code once; it works across every supported backend.
+- **JMX integration** — Expose and control logging configuration through JMX for operations teams.
+- **Testing support** — JUnit 4 and JUnit Jupiter 5 extensions to verify behaviour across multiple log levels.
+- **SPI-based extensibility** — Load the highest-priority Logging implementation automatically via Java ServiceLoader.
+- **Multi-backend coexistence** — Use several logging backends in one JVM with priority-based resolution.
 
-## 模块构成
+## Modules
 
-| 模块 | 说明 |
+| Module | |
 |------|------|
-| `microsphere-logging-commons` | 核心 API：Logging 接口、LoggingUtils、JMX 支持 |
-| `microsphere-java-logging` | Java Logging（JUL）扩展 |
-| `microsphere-logback` | Logback 扩展 |
-| `microsphere-log4j` | Log4j 扩展 |
-| `microsphere-log4j2` | Log4j2 扩展 |
-| `microsphere-logging-test` | JUnit 4 / JUnit Jupiter 5 测试扩展 |
-| `microsphere-logging-examples` | 可运行示例 |
+| `microsphere-logging-commons` | Core API: Logging interface, LoggingUtils, JMX support |
+| `microsphere-java-logging` | Java Logging (JUL) extension |
+| `microsphere-logback` | Logback extension |
+| `microsphere-log4j` | Log4j extension |
+| `microsphere-log4j2` | Log4j2 extension |
+| `microsphere-logging-test` | JUnit 4 / JUnit Jupiter 5 test extensions |
+| `microsphere-logging-examples` | Runnable examples |
 
-## 引入依赖
+## Getting Started
 
 ```xml
 <dependencyManagement>
@@ -57,7 +50,7 @@ project:
 </dependencyManagement>
 ```
 
-然后按需引入模块（版本由 BOM 管理，无需指定）：
+Then add only the modules you need — versions are managed by the BOM:
 
 ```xml
 <dependencies>
@@ -68,9 +61,9 @@ project:
 </dependencies>
 ```
 
-## 环境要求
+## Requirements
 
-| 项目 | 版本 |
+| | |
 |------|------|
 | Java | 8+ |
 | SLF4J | 1.7+ |
@@ -78,11 +71,11 @@ project:
 | Logback | 1.2+ |
 | Log4j2 | 2.4+ |
 
-## 相关链接
+## Links
 
-- [GitHub 仓库](https://github.com/microsphere-projects/microsphere-logging)
-- [问题反馈](https://github.com/microsphere-projects/microsphere-logging/issues)
-- [DeepWiki 智能文档](https://deepwiki.com/microsphere-projects/microsphere-logging)
+- [GitHub Repository](https://github.com/microsphere-projects/microsphere-logging)
+- [Report an Issue](https://github.com/microsphere-projects/microsphere-logging/issues)
+- [DeepWiki Docs](https://deepwiki.com/microsphere-projects/microsphere-logging)
 - [Maven Central · microsphere-logging-commons](https://central.sonatype.com/artifact/io.github.microsphere-projects/microsphere-logging-commons)
 
-<ProjectNav />
+<ProjectNav></ProjectNav>

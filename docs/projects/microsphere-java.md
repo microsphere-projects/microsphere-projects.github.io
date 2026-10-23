@@ -1,41 +1,33 @@
 ---
 title: Microsphere Java
-description: "Microsphere Java Framework 是 Microsphere 生态的骨干基础库。它基于标准 Java API 提供字符串、集合、反射、类型转换、事件分发、类加载与制品探测、网络、I/O、并发等一整套可复用组件，并内置编译期注解处理器。所有其它子项目都构建在它之上。"
+description: "Microsphere Java Framework is the backbone of the Microsphere ecosystem. Built purely on standard Java APIs, it ships a complete set of reusable components covering strings, collections, reflection, type conversion, event dispatching, class loading and artifact detection, networking, I/O and concurrency — plus a compile-time annotation processor. Every other sub-project builds on top of it."
 outline: deep
 project:
   slug: microsphere-java
-  name: Microsphere Java
   layer: runtime
-  tagline: 整个生态的地基：可复用的 Java 组件与工具集
-  lang: Java
-  stars: 104
-  forks: 52
-  artifactId: microsphere-java-core
-  bom: microsphere-java-dependencies
-  version: 0.2.x
 ---
 
-<ProjectHeader />
+<ProjectHeader></ProjectHeader>
 
-## 它解决什么问题
+## Overview
 
-Microsphere Java Framework 是 Microsphere 生态的骨干基础库。它基于标准 Java API 提供字符串、集合、反射、类型转换、事件分发、类加载与制品探测、网络、I/O、并发等一整套可复用组件，并内置编译期注解处理器。所有其它子项目都构建在它之上。
+Microsphere Java Framework is the backbone of the Microsphere ecosystem. Built purely on standard Java APIs, it ships a complete set of reusable components covering strings, collections, reflection, type conversion, event dispatching, class loading and artifact detection, networking, I/O and concurrency — plus a compile-time annotation processor. Every other sub-project builds on top of it.
 
-## 核心特性
+## Key Features
 
-- **字符串与集合工具** — 对字符串、数组、List、Set、Map、Deque 的空安全（null-safe）辅助方法。
-- **反射工具** — 简化字段、方法、构造器以及泛型实参的访问，免去大量样板代码。
-- **类型转换** — 可扩展的 Converter SPI，内置基础类型、集合、Duration、InputStream 等转换器。
-- **事件分发** — 轻量 EventDispatcher，支持顺序（direct）与并行（parallel）两种执行模式。
-- **类加载与制品探测** — 类路径扫描、JAR 内省、Maven / 模块制品解析，支持从 JAR manifest 推断运行时版本。
-- **网络与 I/O** — 自定义 URLStreamHandler 与 URL 工具；增强的文件、流、字符集工具以及文件监听服务。
-- **并发** — 委派式 Executor 包装器与自定义 ThreadFactory。
-- **配置属性** — 基于 SPI 的属性加载，配合注解驱动的元数据生成。
-- **编译期注解处理** — 为 @ConfigurationProperty 生成元数据的 Annotation Processor。
-- **Java 语言模型与 JDK Tools** — 面向 javax.lang.model 的组件，以及桥接 Java 编译器与注解处理工具 API 的辅助类。
-- **测试支持** — 面向 JUnit 5 的基类与工具。
+- **String & Collection Utilities** — Null-safe helpers for strings, arrays, lists, sets, maps and deques.
+- **Reflection Utilities** — Simplified access to fields, methods, constructors and generic type arguments.
+- **Type Conversion** — An extensible Converter SPI with built-in converters for primitives, collections, Duration, InputStream and more.
+- **Event Dispatching** — A lightweight EventDispatcher with sequential (direct) and parallel execution modes.
+- **Class Loading & Artifact Detection** — Classpath scanning, JAR introspection and Maven/module artifact resolution, including runtime version detection from JAR manifests.
+- **Networking & I/O** — A custom URLStreamHandler and URL helpers, plus enhanced file, stream and charset utilities with a file-watch service.
+- **Concurrency** — Delegating executor wrappers and a custom ThreadFactory.
+- **Configuration Properties** — SPI-based property loading with annotation-driven metadata generation.
+- **Compile-time Annotation Processing** — An annotation processor that generates metadata for @ConfigurationProperty.
+- **Language Model & JDK Tools** — Components for the Java Language Model API, plus helpers bridging the compiler and annotation-processing tool APIs.
+- **Testing Support** — Base classes and utilities for JUnit 5-based unit tests.
 
-## 用法示例
+## Usage Example
 
 ```java
 import io.microsphere.util.StringUtils;
@@ -55,20 +47,20 @@ Version v = Version.ofVersion(org.springframework.core.SpringVersion.class);
 boolean modern = v.isGreaterThanOrEqualTo("6.0.0");
 ```
 
-## 模块构成
+## Modules
 
-| 模块 | 说明 |
+| Module | |
 |------|------|
-| `microsphere-java-annotations` | 通用注解：@Nullable、@Nonnull、@Immutable、@Experimental、@Since |
-| `microsphere-java-core` | 核心工具：字符串、集合、反射、I/O、并发、事件、类型转换 |
-| `microsphere-lang-model` | Java 语言模型 API 的组件与工具 |
-| `microsphere-jdk-tools` | Java 编译器与 JDK 工具 API 辅助 |
-| `microsphere-annotation-processor` | @ConfigurationProperty 元数据的编译期处理器 |
-| `microsphere-java-test` | 基于 JUnit 5 的测试模型与工具 |
-| `microsphere-java-dependencies` | BOM，统一管理依赖版本 |
-| `microsphere-java-parent` | 父 POM，共享构建配置 |
+| `microsphere-java-annotations` | Common annotations: @Nullable, @Nonnull, @Immutable, @Experimental, @Since |
+| `microsphere-java-core` | Core utilities: strings, collections, reflection, I/O, concurrency, events, type conversion |
+| `microsphere-lang-model` | Components and utilities for the Java Language Model API |
+| `microsphere-jdk-tools` | Helpers for the Java compiler and JDK tool APIs |
+| `microsphere-annotation-processor` | Compile-time processor generating @ConfigurationProperty metadata |
+| `microsphere-java-test` | Models and utilities for JUnit 5-based testing |
+| `microsphere-java-dependencies` | BOM managing dependency versions |
+| `microsphere-java-parent` | Parent POM with shared build configuration |
 
-## 引入依赖
+## Getting Started
 
 ```xml
 <dependencyManagement>
@@ -84,7 +76,7 @@ boolean modern = v.isGreaterThanOrEqualTo("6.0.0");
 </dependencyManagement>
 ```
 
-然后按需引入模块（版本由 BOM 管理，无需指定）：
+Then add only the modules you need — versions are managed by the BOM:
 
 ```xml
 <dependencies>
@@ -95,18 +87,18 @@ boolean modern = v.isGreaterThanOrEqualTo("6.0.0");
 </dependencies>
 ```
 
-## 环境要求
+## Requirements
 
-| 项目 | 版本 |
+| | |
 |------|------|
-| Java | 8 / 11 / 17 / 21 / 25（CI 全覆盖） |
+| Java | 8 / 11 / 17 / 21 / 25 (all in CI) |
 | Maven | 3.6+ |
 
-## 相关链接
+## Links
 
-- [GitHub 仓库](https://github.com/microsphere-projects/microsphere-java)
-- [问题反馈](https://github.com/microsphere-projects/microsphere-java/issues)
-- [DeepWiki 智能文档](https://deepwiki.com/microsphere-projects/microsphere-java)
+- [GitHub Repository](https://github.com/microsphere-projects/microsphere-java)
+- [Report an Issue](https://github.com/microsphere-projects/microsphere-java/issues)
+- [DeepWiki Docs](https://deepwiki.com/microsphere-projects/microsphere-java)
 - [Maven Central · microsphere-java-core](https://central.sonatype.com/artifact/io.github.microsphere-projects/microsphere-java-core)
 
-<ProjectNav />
+<ProjectNav></ProjectNav>

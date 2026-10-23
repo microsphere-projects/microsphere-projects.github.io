@@ -1,35 +1,29 @@
 ---
 title: Microsphere Security
-description: "为 Microsphere 生态提供安全相关的扩展能力，与 Spring Security 及生态内的拦截机制协同工作。"
+description: "Provides security-related extensions for the Microsphere ecosystem, working alongside Spring Security and the ecosystem's interception mechanisms."
 outline: deep
 project:
   slug: microsphere-security
-  name: Microsphere Security
   layer: crosscutting
-  tagline: 安全能力扩展
-  lang: Java
-  stars: 3
-  forks: 6
-  artifactId: microsphere-security
 ---
 
-<ProjectHeader />
+<ProjectHeader></ProjectHeader>
 
-## 它解决什么问题
+## Overview
 
-为 Microsphere 生态提供安全相关的扩展能力，与 Spring Security 及生态内的拦截机制协同工作。
+Provides security-related extensions for the Microsphere ecosystem, working alongside Spring Security and the ecosystem's interception mechanisms.
 
-## 核心特性
+## Key Features
 
-- **安全扩展** — 提供面向生态的安全能力扩展。
+- **Security extensions** — Security capability extensions for the ecosystem.
 
-## 模块构成
+## Modules
 
-| 模块 | 说明 |
+| Module | |
 |------|------|
-| `microsphere-security` | 安全扩展聚合模块 |
+| `microsphere-security` | Aggregator module for the security extensions |
 
-## 引入依赖
+## Getting Started
 
 ```xml
 <dependencyManagement>
@@ -45,17 +39,17 @@ project:
 </dependencyManagement>
 ```
 
-## 环境要求
+## Requirements
 
-| 项目 | 版本 |
+| | |
 |------|------|
 | Java | 8+ |
 
-## 相关链接
+## Links
 
-- [GitHub 仓库](https://github.com/microsphere-projects/microsphere-security)
-- [问题反馈](https://github.com/microsphere-projects/microsphere-security/issues)
-- [DeepWiki 智能文档](https://deepwiki.com/microsphere-projects/microsphere-security)
+- [GitHub Repository](https://github.com/microsphere-projects/microsphere-security)
+- [Report an Issue](https://github.com/microsphere-projects/microsphere-security/issues)
+- [DeepWiki Docs](https://deepwiki.com/microsphere-projects/microsphere-security)
 - [Maven Central · microsphere-security](https://central.sonatype.com/artifact/io.github.microsphere-projects/microsphere-security)
 
-<ProjectNav />
+<ProjectNav></ProjectNav>

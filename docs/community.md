@@ -1,29 +1,30 @@
 ---
-title: 社区与贡献
-description: 参与 Microsphere Projects 的方式、维护者与行为准则
+title: Community
+description: How to get involved with Microsphere Projects, maintainers and code of conduct
 outline: [2, 3]
 ---
 
-# 社区与贡献
+# Community
 
-## 获取帮助
+## Getting help
 
-| 渠道 | 用途 |
-|------|------|
-| [GitHub Issues](https://github.com/microsphere-projects/microsphere-java/issues) | Bug 报告与特性请求（请先搜索既有 issue） |
-| [GitHub Discussions](https://github.com/microsphere-projects/microsphere-java/discussions) | 使用问题与方案讨论 |
-| [DeepWiki](https://deepwiki.com/microsphere-projects/microsphere-java) | 直接基于源码提问的 AI 文档 |
-| 邮件 | mercyblitz@gmail.com |
+| Channel | Purpose |
+|---------|---------|
+| [GitHub Issues](https://github.com/microsphere-projects/microsphere-java/issues) | Bug reports and feature requests (search existing issues first) |
+| [GitHub Discussions](https://github.com/microsphere-projects/microsphere-java/discussions) | Usage questions and design discussions |
+| [DeepWiki](https://deepwiki.com/microsphere-projects/microsphere-java) | AI documentation that answers questions directly from source |
+| Email | mercyblitz@gmail.com |
 
-提交 Bug 时请附上：**Java 版本、Spring / Spring Boot 版本、Microsphere 版本、最小复现示例与完整堆栈**。
+When reporting a bug, always include **Java version, Spring / Spring Boot version, Microsphere version, a minimal
+reproducer and the full stack trace**.
 
-## 贡献流程
+## Contributing
 
-1. Fork 目标仓库，从 `main` 分支创建特性分支
-2. 实现改动并补充测试
-3. 本地验证：`./mvnw test`（Windows 使用 `mvnw.cmd test`）
-4. 提交 Pull Request，**CI（Maven + JUnit）必须通过**
-5. 参与前请先阅读仓库内的 `CODE_OF_CONDUCT.md`
+1. Fork the repository and create a feature branch from `main`
+2. Implement the change with tests
+3. Verify locally: `./mvnw test` (on Windows: `mvnw.cmd test`)
+4. Open a pull request — **CI (Maven + JUnit) must pass**
+5. Read the repository's `CODE_OF_CONDUCT.md` before participating
 
 ```bash
 git clone https://github.com/microsphere-projects/microsphere-java.git
@@ -31,33 +32,34 @@ cd microsphere-java
 ./mvnw package
 ```
 
-## 维护者
+## Maintainers
 
-| 姓名 | 角色 | 联系方式 |
-|------|------|----------|
-| [Mercy Ma (mercyblitz)](https://github.com/mercyblitz) | 首席架构师与开发者 | mercyblitz@gmail.com |
+| Name | Role | Contact |
+|------|------|---------|
+| [Mercy Ma (mercyblitz)](https://github.com/mercyblitz) | Lead Architect & Developer | mercyblitz@gmail.com |
 
-## 组织信息
+## Organisation
 
-| 项目 | 值 |
-|------|-----|
-| 组织 | [microsphere-projects](https://github.com/microsphere-projects) |
-| 创建时间 | 2021-12-25 |
-| 所在地 | China |
-| 公开仓库 | 36 |
-| 许可证 | Apache License 2.0 |
+| Item | Value |
+|------|-------|
+| Organisation | [microsphere-projects](https://github.com/microsphere-projects) |
+| Created | 2021-12-25 |
+| Location | China |
+| Public repositories | 36 |
+| License | Apache License 2.0 |
 
-## 相关仓库
+## Supporting repositories
 
-部分仓库不属于能力层，而是支撑生态运转：
+Some repositories exist to keep the ecosystem running rather than to provide capabilities:
 
-| 仓库 | 用途 |
-|------|------|
-| `microsphere-projects.github.io` | 官方站点（GitHub Pages） |
-| `.github` | 组织级模板与工作流配置 |
-| `microsphere-devops` / `microsphere-devops-ui` | 工程效能与运维界面（TypeScript） |
-| `microsphere-apidocs` | API 文档生成 |
+| Repository | Purpose |
+|------------|---------|
+| `microsphere-projects.github.io` | The official site (GitHub Pages) |
+| `.github` | Organisation-wide templates and workflow configuration |
+| `microsphere-devops` / `microsphere-devops-ui` | Engineering efficiency and operations UI (TypeScript) |
+| `microsphere-apidocs` | API documentation generation |
 
-## 许可证
+## License
 
-Microsphere Projects 全部代码基于 [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0) 发布。
+All Microsphere Projects code is released under the
+[Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).

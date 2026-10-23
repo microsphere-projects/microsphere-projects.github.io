@@ -1,25 +1,25 @@
 ---
-title: 依赖与 BOM
-description: 全部子项目的 BOM 坐标与推荐引入模块
+title: Dependencies & BOMs
+description: BOM coordinates and recommended entry modules for every sub-project
 outline: [2, 3]
 ---
 
-# 依赖与 BOM
+# Dependencies & BOMs
 
-所有制品的 Group ID 统一为 `io.github.microsphere-projects`，已发布至 Maven Central。
+Every artifact uses the Group ID `io.github.microsphere-projects` and is published to Maven Central.
 
-## 为什么每个项目都有自己的 BOM
+## Why each project has its own BOM
 
-Microsphere 采用**按子项目划分 BOM** 的策略，而不是一个巨型 BOM。原因是各子项目面向不同的 Spring 代际，
-版本节奏并不一致——`microsphere-spring` 更新到 `0.2.39` 时，`microsphere-i18n` 可能停在 `0.2.21`。
-分开管理可以让每个 BOM 独立演进，使用者按需导入即可。
+Microsphere uses **per-sub-project BOMs** rather than one giant BOM. Each sub-project targets a different Spring
+generation and they do not share a release cadence — `microsphere-spring` may be at `0.2.39` while `microsphere-i18n`
+sits at `0.2.21`. Managing them separately lets each BOM evolve independently, and you import only what you need.
 
-如果你希望一次性对齐多个子项目，可以同时导入多个 BOM，Maven 会按声明顺序解析。
+If you want to align several sub-projects at once, import multiple BOMs; Maven resolves them in declaration order.
 
-## BOM 坐标
+## BOM coordinates
 
-| 子项目 | BOM Artifact ID | 推荐入口模块 |
-|--------|-----------------|--------------|
+| Sub-project | BOM artifact | Recommended entry module |
+|-------------|--------------|--------------------------|
 | [microsphere-java](/projects/microsphere-java) | `microsphere-java-dependencies` | `microsphere-java-core` |
 | [microsphere-spring](/projects/microsphere-spring) | `microsphere-spring-dependencies` | `microsphere-spring-context` |
 | [microsphere-spring-boot](/projects/microsphere-spring-boot) | `microsphere-spring-boot-dependencies` | `microsphere-spring-boot-core` |
@@ -38,7 +38,7 @@ Microsphere 采用**按子项目划分 BOM** 的策略，而不是一个巨型 B
 | [microsphere-multiactive](/projects/microsphere-multiactive) | `microsphere-multiactive-dependencies` | `microsphere-multiactive-commons` |
 | [microsphere-logging](/projects/microsphere-logging) | `microsphere-logging-dependencies` | `microsphere-logging-commons` |
 
-## Gradle 写法
+## Gradle
 
 ```kotlin
 dependencies {
@@ -47,9 +47,9 @@ dependencies {
 }
 ```
 
-## 继承父 POM（适用于 Microsphere 生态内部项目）
+## Inheriting the parent POM
 
-如果你在开发一个 Microsphere 子项目，直接继承统一父 POM 即可获得全部构建配置：
+If you are developing a Microsphere sub-project itself, inherit the shared parent POM to get the full build setup:
 
 ```xml
 <parent>
@@ -59,11 +59,12 @@ dependencies {
 </parent>
 ```
 
-详见 [microsphere-build](/projects/microsphere-build)。
+See [microsphere-build](/projects/microsphere-build).
 
-## 排除依赖
+## Excluding dependencies
 
-::: tip 自动配置排除用合并语义
-`microsphere.autoconfigure.exclude` 会合并多个配置源的排除项，而 Spring Boot 原生的
-`spring.autoconfigure.exclude` 是覆盖语义。若你在多处配置排除项，请优先使用前者。
+::: tip Auto-configuration exclusions merge
+`microsphere.autoconfigure.exclude` merges exclusions from multiple configuration sources, while Spring Boot's
+native `spring.autoconfigure.exclude` replaces them. If you declare exclusions in more than one place, prefer the
+former.
 :::

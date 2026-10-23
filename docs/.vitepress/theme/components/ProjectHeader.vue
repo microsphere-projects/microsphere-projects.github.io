@@ -2,33 +2,34 @@
 import { computed } from 'vue'
 import { useData } from 'vitepress'
 import data from '../data/projects.json'
+import { useLocale, UI } from '../composables/useLocale'
 
 const { frontmatter } = useData()
-const p = computed(() => frontmatter.value.project || null)
-const layer = computed(() => {
-  if (!p.value) return null
-  return data.layers.find((l) => l.id === p.value.layer) || null
-})
-const repo = computed(() => `https://github.com/microsphere-projects/${p.value?.slug}`)
+const { L } = useLocale()
+
+const slug = computed(() => frontmatter.value.project?.slug || '')
+const p = computed(() => data.projects.find((x) => x.slug === slug.value) || null)
+const layer = computed(() => (p.value ? data.layers.find((l) => l.id === p.value.layer) : null))
+const repo = computed(() => `https://github.com/microsphere-projects/${slug.value}`)
 </script>
 
 <template>
   <div v-if="p" class="ph">
     <div class="ph__top">
       <div class="ph__crumb">
-        <a href="/projects/">子项目</a>
+        <a :href="L('/projects/', '/zh/projects/')">{{ L('Projects', '子项目') }}</a>
         <span class="ph__sep">/</span>
-        <span v-if="layer" class="ph__layer" :class="`ph__layer--${p.layer}`">{{ layer.title }}</span>
+        <span v-if="layer" class="ph__layer" :class="`ph__layer--${p.layer}`">{{ layer[L('en', 'zh')] }}</span>
       </div>
 
       <div class="ph__stats">
-        <span class="ph__stat" title="Stars">
+        <span class="ph__stat" :title="L(UI.stars.en, UI.stars.zh)">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2z" />
           </svg>
           {{ p.stars }}
         </span>
-        <span class="ph__stat" title="Forks">
+        <span class="ph__stat" :title="L(UI.forks.en, UI.forks.zh)">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="6" cy="5" r="2.4" /><circle cx="6" cy="19" r="2.4" /><circle cx="18" cy="12" r="2.4" />
             <path d="M6 7.4v9.2M8.4 5h2.8a2 2 0 012 2v3.2a2 2 0 002 2h1.4" stroke-linecap="round" />
@@ -40,11 +41,12 @@ const repo = computed(() => `https://github.com/microsphere-projects/${p.value?.
     </div>
 
     <h1 class="ph__title">{{ p.name }}</h1>
-    <p class="ph__tagline">{{ p.tagline }}</p>
+    <p class="ph__tagline">{{ L(p.en.tagline, p.zh.tagline) }}</p>
 
     <div class="ph__meta">
-      <a v-if="p.artifactId" class="ph__coord" :href="`https://central.sonatype.com/artifact/io.github.microsphere-projects/${p.artifactId}`"
-        target="_blank" rel="noreferrer">
+      <a v-if="p.artifactId" class="ph__coord"
+        :href="`https://central.sonatype.com/artifact/io.github.microsphere-projects/${p.artifactId}`" target="_blank"
+        rel="noreferrer">
         <span class="ph__coord-key">io.github.microsphere-projects</span>
         <span class="ph__coord-sep">:</span>
         <span class="ph__coord-art">{{ p.artifactId }}</span>
@@ -53,7 +55,7 @@ const repo = computed(() => `https://github.com/microsphere-projects/${p.value?.
           <path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
       </a>
-      <span v-if="p.version" class="ph__ver">最新 {{ p.version }}</span>
+      <span v-if="p.version" class="ph__ver">{{ L('latest', '最新') }} {{ p.version }}</span>
     </div>
 
     <div class="ph__actions">
@@ -62,11 +64,12 @@ const repo = computed(() => `https://github.com/microsphere-projects/${p.value?.
           <path
             d="M12 .5A11.5 11.5 0 00.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.1.1 1.7 1.2 1.7 1.2 1 1.7 2.6 1.2 3.2.9.1-.7.4-1.2.7-1.5-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.4-2.3 1.1-3.1-.1-.3-.5-1.5.1-3 0 0 1.1-.4 3.6 1.4a12.3 12.3 0 016.4 0c2.5-1.8 3.6-1.4 3.6-1.4.6 1.5.2 2.7.1 3 .7.8 1.1 1.8 1.1 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A11.5 11.5 0 0023.5 12A11.5 11.5 0 0012 .5z" />
         </svg>
-        GitHub 仓库
+        {{ L(UI.repo.en, UI.repo.zh) }}
       </a>
       <a class="ph__btn" :href="`https://deepwiki.com/microsphere-projects/${p.slug}`" target="_blank"
-        rel="noreferrer">DeepWiki 文档</a>
-      <a class="ph__btn" :href="`${repo}/issues`" target="_blank" rel="noreferrer">反馈问题</a>
+        rel="noreferrer">{{ L(UI.deepwiki.en, UI.deepwiki.zh) }}</a>
+      <a class="ph__btn" :href="`${repo}/issues`" target="_blank" rel="noreferrer">{{
+        L(UI.issues.en, UI.issues.zh) }}</a>
     </div>
   </div>
 </template>

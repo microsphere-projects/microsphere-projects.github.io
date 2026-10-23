@@ -1,39 +1,31 @@
 ---
 title: Microsphere Nacos
-description: "面向 Alibaba Nacos 的 Microsphere 集成项目，与 Spring Cloud 生态中的配置管理和服务发现能力协同。"
+description: "A Microsphere integration project for Alibaba Nacos, working alongside the configuration management and service discovery capabilities of the Spring Cloud ecosystem."
 outline: deep
 project:
   slug: microsphere-nacos
-  name: Microsphere Nacos
   layer: integration
-  tagline: Alibaba Nacos 集成
-  lang: Java
-  stars: 2
-  forks: 6
-  artifactId: microsphere-nacos
-  bom: microsphere-nacos-dependencies
-  version: 0.2.0
 ---
 
-<ProjectHeader />
+<ProjectHeader></ProjectHeader>
 
-## 它解决什么问题
+## Overview
 
-面向 Alibaba Nacos 的 Microsphere 集成项目，与 Spring Cloud 生态中的配置管理和服务发现能力协同。
+A Microsphere integration project for Alibaba Nacos, working alongside the configuration management and service discovery capabilities of the Spring Cloud ecosystem.
 
-## 核心特性
+## Key Features
 
-- **Nacos 集成** — 提供与 Alibaba Nacos 的集成能力。
-- **BOM 管理** — 通过 dependencies 模块统一版本。
-- **双线维护** — main 与 1.x 分支并行维护。
+- **Nacos integration** — Integration with Alibaba Nacos.
+- **BOM management** — Unified versioning through the dependencies module.
+- **Dual release lines** — main and 1.x branches maintained in parallel.
 
-## 模块构成
+## Modules
 
-| 模块 | 说明 |
+| Module | |
 |------|------|
-| `microsphere-nacos-dependencies` | BOM，集中依赖管理 |
+| `microsphere-nacos-dependencies` | BOM centralising dependency management |
 
-## 引入依赖
+## Getting Started
 
 ```xml
 <dependencyManagement>
@@ -49,7 +41,7 @@ project:
 </dependencyManagement>
 ```
 
-然后按需引入模块（版本由 BOM 管理，无需指定）：
+Then add only the modules you need — versions are managed by the BOM:
 
 ```xml
 <dependencies>
@@ -60,24 +52,24 @@ project:
 </dependencies>
 ```
 
-## 环境要求
+## Requirements
 
-| 项目 | 版本 |
+| | |
 |------|------|
-| Spring Cloud | 2022.0.x – 2025.0.x（main）/ Hoxton – 2021.0.x（1.x） |
+| Spring Cloud | 2022.0.x – 2025.0.x (main) / Hoxton – 2021.0.x (1.x) |
 
-### 版本线
+### Version Lines
 
-| 分支 | 兼容范围 | 最新版本 |
+| Branch | | |
 |------|----------|----------|
 | `main` | Spring Cloud 2022.0.x – 2025.0.x | `0.2.0` |
 | `1.x` | Spring Cloud Hoxton – 2021.0.x | `0.1.0` |
 
-## 相关链接
+## Links
 
-- [GitHub 仓库](https://github.com/microsphere-projects/microsphere-nacos)
-- [问题反馈](https://github.com/microsphere-projects/microsphere-nacos/issues)
-- [DeepWiki 智能文档](https://deepwiki.com/microsphere-projects/microsphere-nacos)
+- [GitHub Repository](https://github.com/microsphere-projects/microsphere-nacos)
+- [Report an Issue](https://github.com/microsphere-projects/microsphere-nacos/issues)
+- [DeepWiki Docs](https://deepwiki.com/microsphere-projects/microsphere-nacos)
 - [Maven Central · microsphere-nacos](https://central.sonatype.com/artifact/io.github.microsphere-projects/microsphere-nacos)
 
-<ProjectNav />
+<ProjectNav></ProjectNav>

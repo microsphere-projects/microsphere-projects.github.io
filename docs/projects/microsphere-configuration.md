@@ -1,35 +1,29 @@
 ---
 title: Microsphere Configuration
-description: "围绕配置体系提供增强能力，与 Spring Environment、@ConfigurationProperties 以及 Spring Cloud 配置刷新机制协同。"
+description: "Enhancements around the configuration system, working with the Spring Environment, @ConfigurationProperties and Spring Cloud configuration refresh mechanisms."
 outline: deep
 project:
   slug: microsphere-configuration
-  name: Microsphere Configuration
   layer: crosscutting
-  tagline: 配置体系增强
-  lang: Java
-  stars: 2
-  forks: 10
-  artifactId: microsphere-configuration
 ---
 
-<ProjectHeader />
+<ProjectHeader></ProjectHeader>
 
-## 它解决什么问题
+## Overview
 
-围绕配置体系提供增强能力，与 Spring Environment、@ConfigurationProperties 以及 Spring Cloud 配置刷新机制协同。
+Enhancements around the configuration system, working with the Spring Environment, @ConfigurationProperties and Spring Cloud configuration refresh mechanisms.
 
-## 核心特性
+## Key Features
 
-- **配置增强** — 提供配置体系相关的增强能力。
+- **Configuration enhancements** — Enhancements for the configuration system.
 
-## 模块构成
+## Modules
 
-| 模块 | 说明 |
+| Module | |
 |------|------|
-| `microsphere-configuration` | 配置增强聚合模块 |
+| `microsphere-configuration` | Aggregator module for configuration enhancements |
 
-## 引入依赖
+## Getting Started
 
 ```xml
 <dependencyManagement>
@@ -45,17 +39,17 @@ project:
 </dependencyManagement>
 ```
 
-## 环境要求
+## Requirements
 
-| 项目 | 版本 |
+| | |
 |------|------|
 | Java | 8+ |
 
-## 相关链接
+## Links
 
-- [GitHub 仓库](https://github.com/microsphere-projects/microsphere-configuration)
-- [问题反馈](https://github.com/microsphere-projects/microsphere-configuration/issues)
-- [DeepWiki 智能文档](https://deepwiki.com/microsphere-projects/microsphere-configuration)
+- [GitHub Repository](https://github.com/microsphere-projects/microsphere-configuration)
+- [Report an Issue](https://github.com/microsphere-projects/microsphere-configuration/issues)
+- [DeepWiki Docs](https://deepwiki.com/microsphere-projects/microsphere-configuration)
 - [Maven Central · microsphere-configuration](https://central.sonatype.com/artifact/io.github.microsphere-projects/microsphere-configuration)
 
-<ProjectNav />
+<ProjectNav></ProjectNav>

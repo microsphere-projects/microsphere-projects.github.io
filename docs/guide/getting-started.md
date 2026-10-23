@@ -1,24 +1,25 @@
 ---
-title: 快速开始
-description: 从引入 BOM 到跑通第一个 Microsphere 特性
+title: Getting Started
+description: From importing a BOM to running your first Microsphere feature
 outline: [2, 3]
 ---
 
-# 快速开始
+# Getting Started
 
-Microsphere 的所有子项目都可以**按需引入**。下面按最常见的三条路径给出最小可用配置。
+Every Microsphere sub-project can be adopted **on demand**. Below are the three most common starting paths, each with
+a minimal working configuration.
 
-## 前置条件
+## Prerequisites
 
-| 组件 | 版本 |
-|------|------|
-| JDK | 17+（L2 及以上）/ 8+（仅 L1 运行时基座） |
-| Maven | 3.6+（Spring Boot 相关项目建议 3.9+） |
-| 构建工具 | Maven 或 Gradle 均可，制品已发布至 Maven Central |
+| Component | Version |
+|-----------|---------|
+| JDK | 17+ (L2 and above) / 8+ (L1 runtime only) |
+| Maven | 3.6+ (3.9+ recommended for Spring Boot projects) |
+| Build tool | Maven or Gradle — artifacts are on Maven Central |
 
-## 路径一：只用 Java 工具库
+## Path 1: the utility library only
 
-适合任何 Java 应用，不引入 Spring。
+For any Java application, with no Spring involved.
 
 ```xml
 <dependencyManagement>
@@ -50,9 +51,9 @@ Integer n = Converters.convert("42", Integer.class);
 List<String> l = Converters.convert("a,b,c", List.class);
 ```
 
-## 路径二：Spring / Spring Boot 应用
+## Path 2: a Spring / Spring Boot application
 
-在既有 Spring Boot 应用上叠加增强能力，**无需修改任何现有配置**。
+Layer enhancements onto an existing Spring Boot app **without changing any existing configuration**.
 
 ```xml
 <dependencyManagement>
@@ -86,7 +87,7 @@ List<String> l = Converters.convert("a,b,c", List.class);
 </dependencies>
 ```
 
-### 第一步：让配置源可自动刷新
+### Step 1: make property sources self-refreshing
 
 ```java
 @Configuration
@@ -97,7 +98,7 @@ List<String> l = Converters.convert("a,b,c", List.class);
 public class AppConfig { }
 ```
 
-### 第二步：给缓存加上 TTL
+### Step 2: add TTL to your caches
 
 ```java
 @Configuration
@@ -111,7 +112,7 @@ public class ProductService {
 }
 ```
 
-### 第三步：透明开启 SQL 追踪
+### Step 3: enable SQL tracing transparently
 
 ```java
 @Configuration
@@ -119,9 +120,9 @@ public class ProductService {
 public class DataSourceConfig { }
 ```
 
-启动后访问 `/actuator/microsphere/*` 可以看到新增的四个诊断端点。
+After startup, the four extra diagnostic endpoints are available under `/actuator/microsphere/*`.
 
-## 路径三：Spring Cloud 微服务
+## Path 3: Spring Cloud microservices
 
 ```xml
 <dependency>
@@ -137,7 +138,7 @@ public class DataSourceConfig { }
 ```java
 @SpringBootApplication
 @EnableFeignClients
-@EnableFeignAutoRefresh       // 配置变更时自动刷新 Feign 组件
+@EnableFeignAutoRefresh       // refresh Feign components when configuration changes
 public class MyApplication {
     public static void main(String[] args) {
         SpringApplication.run(MyApplication.class, args);
@@ -145,17 +146,17 @@ public class MyApplication {
 }
 ```
 
-## 验证是否生效
+## Verifying it works
 
-| 检查项 | 方法 |
-|--------|------|
-| 依赖版本是否对齐 | `mvn dependency:tree -Dincludes=io.github.microsphere-projects` |
-| Actuator 端点是否注册 | 访问 `/actuator/microsphere/web-endpoint-mappings` |
-| 配置刷新是否工作 | 修改属性文件，观察日志中出现 Feign 组件重建记录 |
-| 指标是否采集 | 访问 `/actuator/prometheus`，检索 `microsphere_` 前缀 |
+| What to check | How |
+|---------------|-----|
+| Dependency versions aligned | `mvn dependency:tree -Dincludes=io.github.microsphere-projects` |
+| Actuator endpoints registered | Visit `/actuator/microsphere/web-endpoint-mappings` |
+| Config refresh working | Edit the properties file and look for Feign component rebuild logs |
+| Metrics collected | Visit `/actuator/prometheus` and search for the `microsphere_` prefix |
 
-## 下一步
+## Next steps
 
-- [依赖与 BOM](/guide/dependencies) — 各子项目的 BOM 与模块坐标全集
-- [版本兼容矩阵](/guide/compatibility) — 选择 `main` 还是 `1.x`
-- [架构大图](/architecture) — 理解各能力之间的组合方式
+- [Dependencies & BOMs](/guide/dependencies) — the full coordinate list for every sub-project
+- [Compatibility matrix](/guide/compatibility) — choosing between `main` and `1.x`
+- [Architecture](/architecture) — how the capabilities compose

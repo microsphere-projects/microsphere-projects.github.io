@@ -1,36 +1,30 @@
 ---
 title: Microsphere Dubbo
-description: "面向 Apache Dubbo RPC 框架的 Microsphere 集成项目，把生态中的拦截、可观测与容错能力带到 Dubbo 服务调用链路。"
+description: "A Microsphere integration project for the Apache Dubbo RPC framework, bringing the ecosystem's interception, observability and resilience capabilities into Dubbo call chains."
 outline: deep
 project:
   slug: microsphere-dubbo
-  name: Microsphere Dubbo
   layer: integration
-  tagline: Apache Dubbo 集成
-  lang: Java
-  stars: 4
-  forks: 7
-  artifactId: microsphere-dubbo
 ---
 
-<ProjectHeader />
+<ProjectHeader></ProjectHeader>
 
-## 它解决什么问题
+## Overview
 
-面向 Apache Dubbo RPC 框架的 Microsphere 集成项目，把生态中的拦截、可观测与容错能力带到 Dubbo 服务调用链路。
+A Microsphere integration project for the Apache Dubbo RPC framework, bringing the ecosystem's interception, observability and resilience capabilities into Dubbo call chains.
 
-## 核心特性
+## Key Features
 
-- **Dubbo 集成** — 提供与 Apache Dubbo 的集成能力。
-- **生态联动** — 可与 Observability、Sentinel 等能力组合。
+- **Dubbo integration** — Integration with Apache Dubbo.
+- **Ecosystem interop** — Combines with Observability, Sentinel and other capabilities.
 
-## 模块构成
+## Modules
 
-| 模块 | 说明 |
+| Module | |
 |------|------|
-| `microsphere-dubbo` | Dubbo 集成聚合模块 |
+| `microsphere-dubbo` | Aggregator module for the Dubbo integration |
 
-## 引入依赖
+## Getting Started
 
 ```xml
 <dependencyManagement>
@@ -46,17 +40,17 @@ project:
 </dependencyManagement>
 ```
 
-## 环境要求
+## Requirements
 
-| 项目 | 版本 |
+| | |
 |------|------|
 | Java | 8+ |
 
-## 相关链接
+## Links
 
-- [GitHub 仓库](https://github.com/microsphere-projects/microsphere-dubbo)
-- [问题反馈](https://github.com/microsphere-projects/microsphere-dubbo/issues)
-- [DeepWiki 智能文档](https://deepwiki.com/microsphere-projects/microsphere-dubbo)
+- [GitHub Repository](https://github.com/microsphere-projects/microsphere-dubbo)
+- [Report an Issue](https://github.com/microsphere-projects/microsphere-dubbo/issues)
+- [DeepWiki Docs](https://deepwiki.com/microsphere-projects/microsphere-dubbo)
 - [Maven Central · microsphere-dubbo](https://central.sonatype.com/artifact/io.github.microsphere-projects/microsphere-dubbo)
 
-<ProjectNav />
+<ProjectNav></ProjectNav>

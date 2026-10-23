@@ -1,36 +1,30 @@
 ---
 title: Microsphere MicroProfile
-description: "为 MicroProfile 规范提供 Microsphere 实现，面向云原生微服务的配置、容错、指标等标准化需求。"
+description: "Provides Microsphere implementations of the MicroProfile specifications, targeting the standardised configuration, fault tolerance and metrics requirements of cloud-native microservices."
 outline: deep
 project:
   slug: microsphere-microprofile
-  name: Microsphere MicroProfile
   layer: runtime
-  tagline: Eclipse MicroProfile 支持
-  lang: Java
-  stars: 1
-  forks: 6
-  artifactId: microsphere-microprofile
 ---
 
-<ProjectHeader />
+<ProjectHeader></ProjectHeader>
 
-## 它解决什么问题
+## Overview
 
-为 MicroProfile 规范提供 Microsphere 实现，面向云原生微服务的配置、容错、指标等标准化需求。
+Provides Microsphere implementations of the MicroProfile specifications, targeting the standardised configuration, fault tolerance and metrics requirements of cloud-native microservices.
 
-## 核心特性
+## Key Features
 
-- **MicroProfile 规范** — 覆盖配置、容错、健康检查等 MicroProfile 能力。
-- **微服务友好** — 与 Microsphere Spring Cloud 的多注册中心能力互补。
+- **MicroProfile specifications** — Covers MicroProfile configuration, fault tolerance, health checks and more.
+- **Microservice oriented** — Complements the multi-registry capabilities of Microsphere Spring Cloud.
 
-## 模块构成
+## Modules
 
-| 模块 | 说明 |
+| Module | |
 |------|------|
-| `microsphere-microprofile` | MicroProfile 实现聚合模块 |
+| `microsphere-microprofile` | Aggregator module for the MicroProfile implementations |
 
-## 引入依赖
+## Getting Started
 
 ```xml
 <dependencyManagement>
@@ -46,17 +40,17 @@ project:
 </dependencyManagement>
 ```
 
-## 环境要求
+## Requirements
 
-| 项目 | 版本 |
+| | |
 |------|------|
 | Java | 8+ |
 
-## 相关链接
+## Links
 
-- [GitHub 仓库](https://github.com/microsphere-projects/microsphere-microprofile)
-- [问题反馈](https://github.com/microsphere-projects/microsphere-microprofile/issues)
-- [DeepWiki 智能文档](https://deepwiki.com/microsphere-projects/microsphere-microprofile)
+- [GitHub Repository](https://github.com/microsphere-projects/microsphere-microprofile)
+- [Report an Issue](https://github.com/microsphere-projects/microsphere-microprofile/issues)
+- [DeepWiki Docs](https://deepwiki.com/microsphere-projects/microsphere-microprofile)
 - [Maven Central · microsphere-microprofile](https://central.sonatype.com/artifact/io.github.microsphere-projects/microsphere-microprofile)
 
-<ProjectNav />
+<ProjectNav></ProjectNav>

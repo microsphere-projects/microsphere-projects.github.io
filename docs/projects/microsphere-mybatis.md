@@ -1,45 +1,37 @@
 ---
 title: Microsphere MyBatis
-description: "通过一套成熟的拦截管道为 MyBatis 提供强大的 SQL 语句拦截能力，在不改动既有 MyBatis 代码的前提下监控、修改或增强 SQL 执行。"
+description: "Provides powerful SQL statement interception through a mature interception pipeline, letting you monitor, modify or enhance SQL execution without changing existing MyBatis code."
 outline: deep
 project:
   slug: microsphere-mybatis
-  name: Microsphere MyBatis
   layer: integration
-  tagline: 轻量级 SQL 拦截增强框架
-  lang: Java
-  stars: 1
-  forks: 3
-  artifactId: microsphere-mybatis-core
-  bom: microsphere-mybatis-dependencies
-  version: 0.2.16
 ---
 
-<ProjectHeader />
+<ProjectHeader></ProjectHeader>
 
-## 它解决什么问题
+## Overview
 
-通过一套成熟的拦截管道为 MyBatis 提供强大的 SQL 语句拦截能力，在不改动既有 MyBatis 代码的前提下监控、修改或增强 SQL 执行。
+Provides powerful SQL statement interception through a mature interception pipeline, letting you monitor, modify or enhance SQL execution without changing existing MyBatis code.
 
-## 核心特性
+## Key Features
 
-- **SQL 执行监控** — 为日志、指标与可观测性采集 SQL 执行情况。
-- **横切关注点注入** — 为 SQL 操作附加安全、限流、缓存等横切逻辑。
-- **SQL 执行增强** — 在不侵入业务代码的前提下扩展 SQL 执行能力。
-- **生态联动** — 与 Sentinel、Resilience4j、Observability 等 Microsphere 项目集成。
+- **SQL execution monitoring** — Collect execution details for logging, metrics and observability.
+- **Cross-cutting concerns** — Attach security, throttling, caching and other concerns to SQL operations.
+- **SQL enhancement** — Extend SQL execution capabilities without touching business code.
+- **Ecosystem interop** — Integrates with Sentinel, Resilience4j, Observability and other Microsphere projects.
 
-## 模块构成
+## Modules
 
-| 模块 | 说明 |
+| Module | |
 |------|------|
-| `microsphere-mybatis-core` | 核心 MyBatis 框架 |
-| `microsphere-mybatis-spring` | Spring Framework 集成与配置 |
-| `microsphere-mybatis-spring-boot` | Spring Boot 自动配置与属性 |
-| `microsphere-mybatis-spring-cloud` | Spring Cloud 特性集成 |
-| `microsphere-mybatis-test / spring-test` | 测试基础设施 |
+| `microsphere-mybatis-core` | Core MyBatis framework |
+| `microsphere-mybatis-spring` | Spring Framework integration and configuration |
+| `microsphere-mybatis-spring-boot` | Spring Boot auto-configuration and properties |
+| `microsphere-mybatis-spring-cloud` | Spring Cloud feature integration |
+| `microsphere-mybatis-test / spring-test` | Testing infrastructure |
 | `microsphere-mybatis-dependencies` | BOM |
 
-## 引入依赖
+## Getting Started
 
 ```xml
 <dependencyManagement>
@@ -55,7 +47,7 @@ project:
 </dependencyManagement>
 ```
 
-然后按需引入模块（版本由 BOM 管理，无需指定）：
+Then add only the modules you need — versions are managed by the BOM:
 
 ```xml
 <dependencies>
@@ -66,24 +58,24 @@ project:
 </dependencies>
 ```
 
-## 环境要求
+## Requirements
 
-| 项目 | 版本 |
+| | |
 |------|------|
-| Spring Cloud | 2022.0.x – 2025.0.x（main）/ Hoxton – 2021.0.x（1.x） |
+| Spring Cloud | 2022.0.x – 2025.0.x (main) / Hoxton – 2021.0.x (1.x) |
 
-### 版本线
+### Version Lines
 
-| 分支 | 兼容范围 | 最新版本 |
+| Branch | | |
 |------|----------|----------|
 | `main` | Spring Cloud 2022.0.x – 2025.0.x | `0.2.16` |
 | `1.x` | Spring Cloud Hoxton – 2021.0.x | `0.1.16` |
 
-## 相关链接
+## Links
 
-- [GitHub 仓库](https://github.com/microsphere-projects/microsphere-mybatis)
-- [问题反馈](https://github.com/microsphere-projects/microsphere-mybatis/issues)
-- [DeepWiki 智能文档](https://deepwiki.com/microsphere-projects/microsphere-mybatis)
+- [GitHub Repository](https://github.com/microsphere-projects/microsphere-mybatis)
+- [Report an Issue](https://github.com/microsphere-projects/microsphere-mybatis/issues)
+- [DeepWiki Docs](https://deepwiki.com/microsphere-projects/microsphere-mybatis)
 - [Maven Central · microsphere-mybatis-core](https://central.sonatype.com/artifact/io.github.microsphere-projects/microsphere-mybatis-core)
 
-<ProjectNav />
+<ProjectNav></ProjectNav>

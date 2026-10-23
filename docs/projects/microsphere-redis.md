@@ -1,48 +1,40 @@
 ---
 title: Microsphere Redis
-description: "在 Spring Data Redis 之上提供企业级增强能力：非侵入式的 Redis 命令拦截、深度 Spring 集成、全面的事件发布与指标采集，以及基于 Kafka 的 Redis 复制支持。"
+description: "Adds enterprise-grade capabilities on top of Spring Data Redis: non-intrusive command interception, deep Spring integration, comprehensive event publishing and metrics collection, and Redis replication support backed by Kafka."
 outline: deep
 project:
   slug: microsphere-redis
-  name: Microsphere Redis
   layer: integration
-  tagline: 增强版 Spring Data Redis 集成框架
-  lang: Java
-  stars: 3
-  forks: 11
-  artifactId: microsphere-redis-spring
-  bom: microsphere-redis-dependencies
-  version: 0.2.14
 ---
 
-<ProjectHeader />
+<ProjectHeader></ProjectHeader>
 
-## 它解决什么问题
+## Overview
 
-在 Spring Data Redis 之上提供企业级增强能力：非侵入式的 Redis 命令拦截、深度 Spring 集成、全面的事件发布与指标采集，以及基于 Kafka 的 Redis 复制支持。
+Adds enterprise-grade capabilities on top of Spring Data Redis: non-intrusive command interception, deep Spring integration, comprehensive event publishing and metrics collection, and Redis replication support backed by Kafka.
 
-## 核心特性
+## Key Features
 
-- **非侵入式操作拦截** — 无需修改应用代码即可监控与拦截 Redis 命令。
-- **Spring 深度集成** — 与 Spring 依赖注入和自动配置无缝衔接。
-- **企业级监控** — 全面的事件发布与指标采集能力。
-- **Redis 复制支持** — 高级复制特性，并与 Kafka 集成。
-- **模块化架构** — 多 Maven 模块清晰分离关注点。
-- **元数据生成** — generator 模块负责 Redis 元数据生成。
+- **Non-intrusive interception** — Monitor and intercept Redis commands without modifying application code.
+- **Deep Spring integration** — Seamless integration with Spring dependency injection and auto-configuration.
+- **Enterprise monitoring** — Comprehensive event publishing and metrics collection.
+- **Redis replication** — Advanced replication features integrated with Kafka.
+- **Modular architecture** — Multiple Maven modules with clean separation of concerns.
+- **Metadata generation** — A dedicated generator module produces Redis metadata.
 
-## 模块构成
+## Modules
 
-| 模块 | 说明 |
+| Module | |
 |------|------|
-| `microsphere-redis-core` | Redis 操作的基础组件与工具 |
-| `microsphere-redis-spring` | Spring Framework 集成 |
-| `microsphere-redis-spring-boot` | Spring Boot 集成 |
-| `microsphere-redis-spring-cloud` | Spring Cloud 集成 |
-| `microsphere-redis-replicator-spring` | Redis 复制支持 |
-| `microsphere-redis-spring-test` | Spring Test 集成 |
-| `microsphere-redis-generator` | Redis 元数据生成 |
+| `microsphere-redis-core` | Foundational components and utilities for Redis operations |
+| `microsphere-redis-spring` | Spring Framework integration |
+| `microsphere-redis-spring-boot` | Spring Boot integration |
+| `microsphere-redis-spring-cloud` | Spring Cloud integration |
+| `microsphere-redis-replicator-spring` | Redis replication support |
+| `microsphere-redis-spring-test` | Spring Test integration |
+| `microsphere-redis-generator` | Redis metadata generation |
 
-## 引入依赖
+## Getting Started
 
 ```xml
 <dependencyManagement>
@@ -58,7 +50,7 @@ project:
 </dependencyManagement>
 ```
 
-然后按需引入模块（版本由 BOM 管理，无需指定）：
+Then add only the modules you need — versions are managed by the BOM:
 
 ```xml
 <dependencies>
@@ -69,24 +61,24 @@ project:
 </dependencies>
 ```
 
-## 环境要求
+## Requirements
 
-| 项目 | 版本 |
+| | |
 |------|------|
-| Spring Data Redis | 3.0.0 – 3.5.x（main）/ 2.1.0 – 2.7.x（1.x） |
+| Spring Data Redis | 3.0.0 – 3.5.x (main) / 2.1.0 – 2.7.x (1.x) |
 
-### 版本线
+### Version Lines
 
-| 分支 | 兼容范围 | 最新版本 |
+| Branch | | |
 |------|----------|----------|
 | `main` | Spring Data Redis 3.0.0 – 3.5.x | `0.2.14` |
 | `1.x` | Spring Data Redis 2.1.0 – 2.7.x | `0.1.14` |
 
-## 相关链接
+## Links
 
-- [GitHub 仓库](https://github.com/microsphere-projects/microsphere-redis)
-- [问题反馈](https://github.com/microsphere-projects/microsphere-redis/issues)
-- [DeepWiki 智能文档](https://deepwiki.com/microsphere-projects/microsphere-redis)
+- [GitHub Repository](https://github.com/microsphere-projects/microsphere-redis)
+- [Report an Issue](https://github.com/microsphere-projects/microsphere-redis/issues)
+- [DeepWiki Docs](https://deepwiki.com/microsphere-projects/microsphere-redis)
 - [Maven Central · microsphere-redis-spring](https://central.sonatype.com/artifact/io.github.microsphere-projects/microsphere-redis-spring)
 
-<ProjectNav />
+<ProjectNav></ProjectNav>
